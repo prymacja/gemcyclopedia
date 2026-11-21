@@ -215,3 +215,8 @@ button { color: inherit; }
 .article-notice--stub { border-color: #b18e00; color: #202122; background: rgba(255, 232, 99, .5); }
 .article-notice--warning { border-color: #b51e2e; color: #fff; background: rgba(190, 30, 45, .5); }
 html[data-theme="light"] .article-notice--warning { color: #202122; background: rgba(220, 53, 69, .5); }
+
+/* Keep every interface and article element in the homepage title typeface. */
+body, body * { font-family: Georgia, 'Times New Roman', serif !important; }
+
+.cross-reference { font-size: .8em; font-style: italic; }
