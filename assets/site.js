@@ -208,9 +208,23 @@
   if (langSelect) langSelect.value = locale;
   langSelect?.addEventListener("change", () => {
     const next = langSelect.value;
+    if (next === locale) return;
+
     const localeMap = data.pageLocales?.[currentPage] || {};
-    const target = localeMap[next];
-    if (target) window.location.href = pageUrl(target, next);
+    let target = localeMap[next];
+    if (!target && currentPage === "home") target = `${next}/index.html`;
+    if (!target) return;
+
+    // Resolve routes from the site root so this works in repository subpaths,
+    // nested article folders, and local file previews. Full navigation reloads
+    // the page shell and all localized article content together.
+    if (next === "pl" && !target.startsWith("pl/")) target = `pl/${target}`;
+    if (next !== "pl" && target.startsWith("pl/")) target = target.slice(3);
+    const encodedRoute = target.split("/").map((part) => encodeURIComponent(part)).join("/");
+    const rootPath = root ? `${root.replace(/\/+$/, "")}/` : "./";
+    const siteRoot = new URL(rootPath, window.location.href);
+    const destination = new URL(encodedRoute, siteRoot);
+    window.location.assign(destination.href);
   });
 
   const articlePage = pageById.get(currentPage);
