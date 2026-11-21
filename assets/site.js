@@ -2,12 +2,29 @@
   const root = document.body.dataset.siteBase || ".";
   const currentPage = document.body.dataset.currentPage || "home";
   const data = window.GEMCYCLOPEDIA_DATA || { pages: [], links: {}, ui: {} };
-  const locale = document.documentElement.dataset.locale || "en";
+  const locale = document.documentElement.dataset.locale || data.locale || "en";
   const words = data.ui?.[locale] || data.ui?.en || {};
-  const entries = data.pages || [];
+  const sourceEntries = data.pages || [];
+  const entries = sourceEntries.map((page) => locale === "pl" ? ({
+    ...page,
+    title: page.plTitle || page.title,
+    description: page.plDescription || page.description,
+    searchText: page.plSearchText || page.searchText,
+  }) : page);
+  const sourcePageById = new Map(sourceEntries.map((page) => [page.id, page]));
   const pageById = new Map(entries.map((page) => [page.id, page]));
-  const pageUrl = (href) => `${root.replace(/\/$/, "")}/${href}`.replace(/^\.\//, root === "." ? "./" : "../");
-  const assetUrl = (href) => pageUrl(href.split("/").map((part) => encodeURIComponent(part)).join("/"));
+  const siteBase = root.replace(/\/$/, "");
+  const pageUrl = (href, targetLocale = locale) => {
+    let route = String(href || "");
+    if (targetLocale === "pl" && !route.startsWith("pl/")) route = "pl/" + route;
+    if (targetLocale !== "pl" && route.startsWith("pl/")) route = route.slice(3);
+    const encoded = route.split("/").map((part) => encodeURIComponent(part)).join("/");
+    return (siteBase + "/" + encoded).replace(/^\.\//, siteBase === "." ? "./" : "../");
+  };
+  const assetUrl = (href) => {
+    const encoded = href.split("/").map((part) => encodeURIComponent(part)).join("/");
+    return (siteBase + "/" + encoded).replace(/^\.\//, siteBase === "." ? "./" : "../");
+  };
 
   document.querySelectorAll("[data-i18n]").forEach((node) => {
     const key = node.dataset.i18n;
@@ -15,6 +32,7 @@
   });
 
   const search = document.querySelector("#site-search");
+  if (search && words.search) search.placeholder = words.search;
   const results = document.querySelector("#search-results");
   let activeResult = -1;
   const normalize = (value) => (value || "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase().replace(/\s+/g, " ").trim();
@@ -40,8 +58,8 @@
       const full = page.normalizedText;
       let score = 0;
       let matchKind = "";
-      if (title === q) { score = 1000; matchKind = "Exact title"; }
-      else if (page.id === exactAlias) { score = 900; matchKind = "Exact alternative name"; }
+      if (title === q) { score = 1000; matchKind = words.exactTitle || "Exact title"; }
+      else if (page.id === exactAlias) { score = 900; matchKind = words.exactAlias || "Exact alternative name"; }
       else if (title.startsWith(q)) score = 70;
       else if (title.includes(q)) score = 45;
       else if (full.includes(q)) score = 20;
@@ -65,7 +83,7 @@
   const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
   })[char]);
-  const categoryName = (category) => ({ gem: "Gem", power: "Power", location: "Location", source: "Source text" })[category] || "Article";
+  const categoryName = (category) => (locale === "pl" ? ({ gem: "Klejnot", power: "Moc", location: "Miejsce", source: "Tekst źródłowy" }) : ({ gem: "Gem", power: "Power", location: "Location", source: "Source text" }))[category] || (locale === "pl" ? "Artykuł" : "Article");
 
   if (search) {
     search.addEventListener("input", () => runSearch(search.value));
@@ -154,7 +172,7 @@
       const cards = batch.map((gem) => {
         const image = gem.featureImage
           ? '<img src="' + assetUrl(gem.featureImage) + '" alt="' + escapeHtml(gem.title) + '" loading="lazy">'
-          : '<span class="common-gem-no-image">Image unavailable</span>';
+          : '<span class="common-gem-no-image">' + escapeHtml(words.imageUnavailable || "Image unavailable") + '</span>';
         const description = gem.description ? gem.description.slice(0, 165) : "";
         return '<a class="common-gem-card" href="' + pageUrl(gem.href) + '"><span class="common-gem-image">' + image + '</span><strong>' + escapeHtml(gem.title) + '</strong><span class="common-gem-snippet">' + escapeHtml(description) + '</span></a>';
       }).join("");
@@ -172,8 +190,8 @@
     const next = theme === "dark" ? "light" : "dark";
     if (themeToggle) {
       themeToggle.textContent = theme === "dark" ? "◐" : "◑";
-      themeToggle.setAttribute("aria-label", "Switch to " + next + " mode");
-      themeToggle.title = "Switch to " + next + " mode";
+      themeToggle.setAttribute("aria-label", theme === "dark" ? (words.switchToLight || "Switch to light mode") : (words.switchToDark || "Switch to dark mode"));
+      themeToggle.title = theme === "dark" ? (words.switchToLight || "Switch to light mode") : (words.switchToDark || "Switch to dark mode");
     }
   };
   try {
@@ -187,11 +205,12 @@
   });
 
   const langSelect = document.getElementById("language-select");
+  if (langSelect) langSelect.value = locale;
   langSelect?.addEventListener("change", () => {
     const next = langSelect.value;
     const localeMap = data.pageLocales?.[currentPage] || {};
     const target = localeMap[next];
-    if (target) window.location.href = pageUrl(target);
+    if (target) window.location.href = pageUrl(target, next);
   });
 
   const articlePage = pageById.get(currentPage);
@@ -218,13 +237,14 @@
       if (wordCount < 100 || !articlePage.featureImage) {
         notices.push(makeNotice(
           "stub",
-          "This article is a stub",
-          "There is little available information regarding this stone. If you have more, please help expand this article by contacting the site owner.",
+          words.stubTitle || "This article is a stub",
+          words.stubBody || "There is little available information regarding this stone.",
         ));
       }
     }
 
-    const articleText = `${articlePage.title || ""} ${articlePage.description || ""} ${articlePage.searchText || ""}`;
+    const originalArticlePage = sourcePageById.get(currentPage) || articlePage;
+    const articleText = originalArticlePage.title + " " + originalArticlePage.description + " " + originalArticlePage.searchText;
     const predictionPattern = /\b(?:divinat\w*|foretell\w*|foretold|prophec\w*|prophes\w*|oracul\w*|necroman\w*|hydroman\w*|astrolog\w*|geomanc\w*|chiromanc\w*|oneiromanc\w*|scry\w*|fortune[\s-]?tell\w*|foreknowledge|presag\w*|forecast\w*|prognosticat\w*|augur\w*)\b|\b(?:predict|foresee|foretell|forecast|presage|augur)\w*/i;
     const entities = "(?:spirits?|demons?|devils?|ghosts?|shades?|phantasms?|phantoms?|daemons?|the\\s+dead)";
     const actions = "(?:summon\\w*|conjur\\w*|evok\\w*|invok\\w*|call\\s+(?:up|forth)|calls?\\s+(?:spirits?|demons?|ghosts?|phantasms?|phantoms?)|rais\\w*|control\\w*|commands|commanded|commanding|compel\\w*|enslav\\w*|bind\\w*|contact\\w*|communicat\\w*|speak(?:s|ing)?\\s+(?:with|to)|consult\\w*|asks|asked|asking|interrogat\\w*|obtain\\w*\\s+answers?|answer\\w*|obey\\w*)";
@@ -247,8 +267,8 @@
     if (warnForContent || (articlePage.category === "power" && flaggedPowerPages.has(articleTitleKey))) {
       notices.push(makeNotice(
         "warning",
-        "Warning! The page contents may contradict the Catholic Faith!",
-        "This article mentions divination, necromancy, summoning spirits or other illicit practices condemned by the Catholic Church. Do not attempt any of those practices. Read responsibly!",
+        words.warningTitle || "Warning! The page contents may contradict the Catholic Faith!",
+        words.warningBody || "Read responsibly!",
       ));
     }
 
@@ -271,104 +291,4 @@
     navToggle?.setAttribute("aria-expanded", "false");
   }));
 
-  const canvas = document.getElementById("knowledge-graph");
-  if (canvas) initGraph(canvas, data, pageUrl);
-
-  function initGraph(canvasElement, siteData, urlFor) {
-    const ctx = canvasElement.getContext("2d");
-    const filter = document.getElementById("graph-filter");
-    const status = document.getElementById("graph-status");
-    const tooltip = document.getElementById("graph-tooltip");
-    let nodes = [];
-    let edges = [];
-    let positions = [];
-    let scale = 1;
-    let width = 0;
-    let height = 0;
-
-    const color = () => "#b8b8b8";
-    const rebuild = () => {
-      const kind = filter?.value || "all";
-      const all = (siteData.pages || []).filter((page) => kind === "all" || page.category === kind);
-      const degree = new Map(all.map((page) => [page.id, 0]));
-      for (const [from, tos] of Object.entries(siteData.links || {})) {
-        if (degree.has(from)) degree.set(from, degree.get(from) + tos.filter((to) => degree.has(to)).length);
-        for (const to of tos) if (degree.has(to)) degree.set(to, degree.get(to) + 1);
-      }
-      nodes = all.sort((a, b) => (degree.get(b.id) || 0) - (degree.get(a.id) || 0)).slice(0, kind === "all" ? 105 : 90);
-      const chosen = new Set(nodes.map((node) => node.id));
-      edges = [];
-      for (const [from, tos] of Object.entries(siteData.links || {})) {
-        if (!chosen.has(from)) continue;
-        for (const to of tos) if (chosen.has(to) && from < to) edges.push([from, to]);
-      }
-      positions = nodes.map((node, i) => {
-        const group = ["gem", "power", "location", "source"].indexOf(node.category);
-        const local = nodes.slice(0, i).filter((x) => x.category === node.category).length;
-        const count = Math.max(1, nodes.filter((x) => x.category === node.category).length);
-        const angle = (local / count) * Math.PI * 2 + group * .31;
-        const radius = Math.min(width, height) * (.19 + group * .045);
-        return { id: node.id, x: width / 2 + Math.cos(angle) * radius, y: height / 2 + Math.sin(angle) * radius, node };
-      });
-      if (status) status.textContent = `${nodes.length} pages · ${edges.length} connections shown`;
-      draw();
-    };
-    const resize = () => {
-      const rect = canvasElement.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
-      width = rect.width;
-      height = rect.height;
-      canvasElement.width = Math.floor(width * dpr);
-      canvasElement.height = Math.floor(height * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      rebuild();
-    };
-    const draw = () => {
-      if (!ctx || !width || !height) return;
-      ctx.clearRect(0, 0, width, height);
-      const byId = new Map(positions.map((p) => [p.id, p]));
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = "rgba(190, 190, 190, .25)";
-      for (const [a, b] of edges) {
-        const p1 = byId.get(a), p2 = byId.get(b);
-        if (!p1 || !p2) continue;
-        ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
-      }
-      for (const p of positions) {
-        const radius = p.node.category === "gem" ? 4.2 : 3.5;
-        ctx.beginPath(); ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
-        ctx.fillStyle = color(p.node.category); ctx.fill();
-        if (p.node.category !== "gem" || p.x < width * .18) {
-          ctx.font = "11px Georgia, 'Times New Roman', serif"; ctx.fillStyle = "rgba(230,230,230,.85)";
-          ctx.fillText(p.node.title.slice(0, 28), p.x + 8, p.y - 7);
-        }
-      }
-    };
-    const locate = (event) => {
-      const rect = canvasElement.getBoundingClientRect();
-      const x = event.clientX - rect.left, y = event.clientY - rect.top;
-      return positions.find((p) => Math.hypot(p.x - x, p.y - y) < 12);
-    };
-    canvasElement.addEventListener("mousemove", (event) => {
-      const hit = locate(event);
-      if (hit) {
-        canvasElement.style.cursor = "pointer";
-        tooltip.hidden = false;
-        tooltip.style.left = `${Math.min(event.clientX + 13, window.innerWidth - 270)}px`;
-        tooltip.style.top = `${Math.min(event.clientY + 13, window.innerHeight - 100)}px`;
-        tooltip.innerHTML = `<strong>${escapeHtml(hit.node.title)}</strong><br><span>${escapeHtml(categoryName(hit.node.category))}</span>`;
-      } else {
-        canvasElement.style.cursor = "grab";
-        tooltip.hidden = true;
-      }
-    });
-    canvasElement.addEventListener("mouseleave", () => { if (tooltip) tooltip.hidden = true; });
-    canvasElement.addEventListener("click", (event) => {
-      const hit = locate(event);
-      if (hit) window.location.href = urlFor(hit.node.href);
-    });
-    filter?.addEventListener("change", rebuild);
-    window.addEventListener("resize", resize);
-    resize();
-  }
 })();

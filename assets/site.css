@@ -169,11 +169,6 @@ button { color: inherit; }
 .index-card-summary { display: -webkit-box; overflow: hidden; margin-top: 3px; color: var(--muted); font: 12px/1.45 var(--reading-font); -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
 .index-card small { display: inline-block; margin-top: 5px; color: var(--muted); font-size: 10px; text-transform: uppercase; }
 .credits-table { font-size: 12px !important; }
-.graph-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 12px 0; color: var(--muted); font-size: 12px; }
-.graph-toolbar select { padding: 6px 8px; border: 1px solid var(--line); color: var(--text); background: var(--panel); }
-.graph-canvas-wrap { height: min(68vh, 680px); min-height: 380px; overflow: hidden; border: 1px solid var(--line); background: var(--bg-soft); }
-#knowledge-graph { width: 100%; height: 100%; cursor: grab; }
-.graph-tooltip { position: fixed; z-index: 30; max-width: 250px; padding: 9px 11px; border: 1px solid var(--line); color: var(--text); background: var(--panel); pointer-events: none; font-size: 12px; }
 @media (max-width: 1150px) {
   .page-shell, .page-shell.with-toc { grid-template-columns: 185px minmax(0, 1fr); gap: 24px; }
   .right-rail { display: none; }
