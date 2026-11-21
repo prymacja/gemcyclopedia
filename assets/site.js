@@ -194,6 +194,72 @@
     if (target) window.location.href = pageUrl(target);
   });
 
+  const articlePage = pageById.get(currentPage);
+  const articleContent = document.querySelector(".article-content");
+  if (articlePage && articleContent && ["gem", "power"].includes(articlePage.category)) {
+    const notices = [];
+    const makeNotice = (kind, heading, message) => {
+      const notice = document.createElement("aside");
+      notice.className = `article-notice article-notice--${kind}`;
+      notice.setAttribute("role", "note");
+      const title = document.createElement("h2");
+      title.textContent = heading;
+      const body = document.createElement("p");
+      body.textContent = message;
+      notice.append(title, body);
+      return notice;
+    };
+
+    if (articlePage.category === "gem") {
+      const visibleText = articleContent.textContent.trim();
+      const wordCount = Number.isFinite(articlePage.wordCount)
+        ? articlePage.wordCount
+        : (visibleText.match(/\S+/g) || []).length;
+      if (wordCount < 100 || !articlePage.featureImage) {
+        notices.push(makeNotice(
+          "stub",
+          "This article is a stub",
+          "There is little available information regarding this stone. If you have more, please help expand this article by contacting the site owner.",
+        ));
+      }
+    }
+
+    const articleText = `${articlePage.title || ""} ${articlePage.description || ""} ${articlePage.searchText || ""}`;
+    const predictionPattern = /\b(?:divinat\w*|foretell\w*|foretold|prophec\w*|prophes\w*|oracul\w*|necroman\w*|hydroman\w*|astrolog\w*|geomanc\w*|chiromanc\w*|oneiromanc\w*|scry\w*|fortune[\s-]?tell\w*|foreknowledge|presag\w*|forecast\w*|prognosticat\w*|augur\w*)\b|\b(?:predict|foresee|foretell|forecast|presage|augur)\w*/i;
+    const entities = "(?:spirits?|demons?|devils?|ghosts?|shades?|phantasms?|phantoms?|daemons?|the\\s+dead)";
+    const actions = "(?:summon\\w*|conjur\\w*|evok\\w*|invok\\w*|call\\s+(?:up|forth)|calls?\\s+(?:spirits?|demons?|ghosts?|phantasms?|phantoms?)|rais\\w*|control\\w*|commands|commanded|commanding|compel\\w*|enslav\\w*|bind\\w*|contact\\w*|communicat\\w*|speak(?:s|ing)?\\s+(?:with|to)|consult\\w*|asks|asked|asking|interrogat\\w*|obtain\\w*\\s+answers?|answer\\w*|obey\\w*)";
+    const occultPracticePattern = new RegExp(
+      `(?:\\b${actions}\\b[^.!?]{0,100}\\b${entities}\\b|\\b${entities}\\b[^.!?]{0,100}\\b${actions}\\b|\\banswers?\\b[^.!?]{0,60}\\bfrom\\s+${entities}\\b|(?:summon\\w*.{0,80}(?:monster|creature)|(?:monster|creature).{0,80}summon\\w*).{0,80}(?:spell|magic|witchcraft|enchant\\w*))`,
+      "i",
+    );
+    const spiritualPowerPattern = /\b(?:power|dominion|control)\s+over\s+(?:the\s+)?(?:spirits?|demons?)\b/i;
+    const magicalUsePattern = /\b(?:useful|used|employed|serves?)\b[^.!?]{0,60}\b(?:magic|magical) arts\b|\b(?:magic|magical) arts\b[^.!?]{0,60}\b(?:useful|used|employed|serves?)\b|\bmagical engravings?\b|\bmagical images?\b/i;
+    const possessionRitualPattern = /\bfor possession\b[\s\S]{0,500}\b(?:demon|spirit)\w*/i;
+    const demonExpulsionPattern = /\b(?:cast(?:s|ing)? out|driv\w* away|expel\w*|banish\w*|repel\w*|chase\w* away)\b[^.!?]{0,100}\b(?:spirits?|demons?|devils?|ghosts?|shades?|phantoms?|daemons?|the dead)\b|\b(?:spirits?|demons?|devils?|ghosts?|shades?|phantoms?|daemons?|the dead)\b[^.!?]{0,100}\b(?:cast(?:s|ing)? out|driv\w* away|expel\w*|banish\w*|repel\w*|chase\w* away)\b/i;
+    const summonedCreaturePattern = /(?:summon\w*.{0,80}\b(?:monster|creature)\b|\b(?:monster|creature)\b.{0,80}\bsummon\w*).{0,80}\b(?:spell|magic|witchcraft|enchant\w*)\b/i;
+    const articleTitleKey = normalize(articlePage.title).replace(/[^a-z0-9]+/g, " ").trim();
+    const flaggedPowerPages = new Set([
+      "divination dreams and hidden things",
+      "spirits magic and enchantment",
+    ]);
+    const warnForContent = articlePage.category === "gem"
+      && (predictionPattern.test(articleText) || occultPracticePattern.test(articleText) || spiritualPowerPattern.test(articleText) || magicalUsePattern.test(articleText) || possessionRitualPattern.test(articleText) || demonExpulsionPattern.test(articleText) || summonedCreaturePattern.test(articleText));
+    if (warnForContent || (articlePage.category === "power" && flaggedPowerPages.has(articleTitleKey))) {
+      notices.push(makeNotice(
+        "warning",
+        "Warning! The page contents may contradict the Catholic Faith!",
+        "This article mentions divination, necromancy, summoning spirits or other illicit practices condemned by the Catholic Church. Do not attempt any of those practices. Read responsibly!",
+      ));
+    }
+
+    if (notices.length) {
+      const noticeGroup = document.createElement("div");
+      noticeGroup.className = "article-notices";
+      noticeGroup.setAttribute("aria-label", "Article notices");
+      notices.forEach((notice) => noticeGroup.append(notice));
+      articleContent.parentNode.insertBefore(noticeGroup, articleContent);
+    }
+  }
   const navToggle = document.getElementById("mobile-nav-toggle");
   const nav = document.getElementById("left-rail");
   navToggle?.addEventListener("click", () => {
@@ -273,7 +339,7 @@
         ctx.beginPath(); ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
         ctx.fillStyle = color(p.node.category); ctx.fill();
         if (p.node.category !== "gem" || p.x < width * .18) {
-          ctx.font = "11px system-ui, sans-serif"; ctx.fillStyle = "rgba(230,230,230,.85)";
+          ctx.font = "11px Georgia, 'Times New Roman', serif"; ctx.fillStyle = "rgba(230,230,230,.85)";
           ctx.fillText(p.node.title.slice(0, 28), p.x + 8, p.y - 7);
         }
       }

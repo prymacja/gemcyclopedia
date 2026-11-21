@@ -11,7 +11,7 @@
   --faint: #a2a2a2;
   --link: #75b5f5;
   --link-hover: #a0ceff;
-  --body-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --body-font: Georgia, "Times New Roman", serif;
   --reading-font: Georgia, "Times New Roman", serif;
 }
 html[data-theme="light"] {
@@ -208,3 +208,10 @@ button { color: inherit; }
   .common-gem-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .site-footer { flex-direction: column; }
 }
+.article-notices { display: grid; gap: 10px; margin: 0 0 16px; }
+.article-notice { padding: 11px 14px; border: 1px solid; border-radius: 2px; }
+.article-notice h2 { margin: 0 0 4px; font: 650 16px/1.35 var(--body-font); }
+.article-notice p { margin: 0; font: 14px/1.5 var(--body-font); }
+.article-notice--stub { border-color: #b18e00; color: #202122; background: rgba(255, 232, 99, .5); }
+.article-notice--warning { border-color: #b51e2e; color: #fff; background: rgba(190, 30, 45, .5); }
+html[data-theme="light"] .article-notice--warning { color: #202122; background: rgba(220, 53, 69, .5); }
