@@ -315,6 +315,7 @@
     const magicalUsePattern = /\b(?:useful|used|employed|serves?)\b[^.!?]{0,60}\b(?:magic|magical) arts\b|\b(?:magic|magical) arts\b[^.!?]{0,60}\b(?:useful|used|employed|serves?)\b|\bmagical engravings?\b|\bmagical images?\b/i;
     const possessionRitualPattern = /\bfor possession\b[\s\S]{0,500}\b(?:demon|spirit)\w*/i;
     const demonExpulsionPattern = /\b(?:cast(?:s|ing)? out|driv\w* away|expel\w*|banish\w*|repel\w*|chase\w* away)\b[^.!?]{0,100}\b(?:spirits?|demons?|devils?|ghosts?|shades?|phantoms?|daemons?|the dead)\b|\b(?:spirits?|demons?|devils?|ghosts?|shades?|phantoms?|daemons?|the dead)\b[^.!?]{0,100}\b(?:cast(?:s|ing)? out|driv\w* away|expel\w*|banish\w*|repel\w*|chase\w* away)\b/i;
+    const illicitPracticePattern = /\b(?:sorcer\w*|witchcraft|enchant\w*|black magic|evil arts|demonic possession)\b/i;
     const summonedCreaturePattern = /(?:summon\w*.{0,80}\b(?:monster|creature)\b|\b(?:monster|creature)\b.{0,80}\bsummon\w*).{0,80}\b(?:spell|magic|witchcraft|enchant\w*)\b/i;
     const articleTitleKey = normalize(articlePage.title).replace(/[^a-z0-9]+/g, " ").trim();
     const flaggedPowerPages = new Set([
@@ -322,7 +323,7 @@
       "spirits magic and enchantment",
     ]);
     const warnForContent = articlePage.category === "gem"
-      && (predictionPattern.test(articleText) || occultPracticePattern.test(articleText) || spiritualPowerPattern.test(articleText) || magicalUsePattern.test(articleText) || possessionRitualPattern.test(articleText) || demonExpulsionPattern.test(articleText) || summonedCreaturePattern.test(articleText));
+      && (predictionPattern.test(articleText) || occultPracticePattern.test(articleText) || spiritualPowerPattern.test(articleText) || magicalUsePattern.test(articleText) || possessionRitualPattern.test(articleText) || demonExpulsionPattern.test(articleText) || summonedCreaturePattern.test(articleText) || illicitPracticePattern.test(articleText));
     if (warnForContent || (articlePage.category === "power" && flaggedPowerPages.has(articleTitleKey))) {
       notices.push(makeNotice(
         "warning",
