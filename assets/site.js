@@ -31,6 +31,51 @@
     if (words[key]) node.textContent = words[key];
   });
 
+  // Rebuild alphabetical indexes from the labels rendered in the active language.
+  const alphaNav = document.querySelector(".letter-nav");
+  const alphaSections = Array.from(document.querySelectorAll(".alpha-group"));
+  if (alphaNav && alphaSections.length) {
+    const collator = new Intl.Collator(locale, { sensitivity: "accent", numeric: true });
+    const cards = alphaSections.flatMap((section) => Array.from(section.querySelectorAll(".index-card")));
+    const groups = new Map();
+    cards.forEach((card) => {
+      const title = card.querySelector(".index-card-title")?.textContent.trim() || "#";
+      const first = Array.from(title.normalize("NFC"))[0] || "#";
+      const letter = first.toLocaleUpperCase(locale);
+      if (!groups.has(letter)) groups.set(letter, []);
+      groups.get(letter).push(card);
+    });
+    const letters = Array.from(groups.keys()).sort((a, b) => collator.compare(a, b));
+    alphaNav.replaceChildren(...letters.map((letter) => {
+      const link = document.createElement("a");
+      link.href = `#letter-${letter.toLocaleLowerCase(locale)}`;
+      link.textContent = letter;
+      return link;
+    }));
+    const rebuilt = letters.map((letter) => {
+      const section = document.createElement("section");
+      section.className = "alpha-group";
+      section.id = `letter-${letter.toLocaleLowerCase(locale)}`;
+      const heading = document.createElement("h2");
+      heading.textContent = letter;
+      const grid = document.createElement("div");
+      grid.className = "index-grid";
+      groups.get(letter)
+        .sort((a, b) => collator.compare(
+          a.querySelector(".index-card-title")?.textContent.trim() || "",
+          b.querySelector(".index-card-title")?.textContent.trim() || "",
+        ))
+        .forEach((card) => grid.append(card));
+      section.append(heading, grid);
+      return section;
+    });
+    const parent = alphaSections[0].parentElement;
+    alphaSections.forEach((section) => section.remove());
+    const intro = parent.querySelector(".index-intro");
+    if (intro) intro.after(...rebuilt);
+    else parent.append(...rebuilt);
+  }
+
   const search = document.querySelector("#site-search");
   if (search && words.search) search.placeholder = words.search;
   const results = document.querySelector("#search-results");
