@@ -383,7 +383,7 @@
     ]);
     // Jet is Gagates. Its relevant passage describes smoke driving demons away,
     // not invoking or summoning them; do not show the warning for that article.
-    const warningExemptGemPages = new Set(["Gems/Jet"]);
+    const warningExemptGemPages = new Set(["Gems/Jet", "Gems/Emerald"]);
     const warnForContent = articlePage.category === "gem"
       && !warningExemptGemPages.has(articlePage.id)
       && (predictionPattern.test(articleText) || occultPracticePattern.test(articleText) || spiritualPowerPattern.test(articleText) || magicalUsePattern.test(articleText) || possessionRitualPattern.test(articleText) || summonedCreaturePattern.test(articleText) || illicitPracticePattern.test(articleText));
