@@ -377,10 +377,9 @@
     // Match the gem actively summoning a creature; a creature merely described as
     // summoned by someone else can occur in a protective/banishing passage.
     const summonedCreaturePattern = /\bsummon\w*.{0,80}\b(?:monster|creature)\b.{0,80}\b(?:spell|magic|witchcraft|enchant\w*)\b/i;
-    const articleTitleKey = normalize(articlePage.title).replace(/[^a-z0-9]+/g, " ").trim();
     const flaggedPowerPages = new Set([
-      "divination dreams and hidden things",
-      "spirits magic and enchantment",
+      "Powers/Divination, Dreams, and Hidden Things",
+      "Powers/Spirits, Magic, and Enchantment",
     ]);
     // Jet is Gagates. Its relevant passage describes smoke driving demons away,
     // not invoking or summoning them; do not show the warning for that article.
@@ -388,7 +387,7 @@
     const warnForContent = articlePage.category === "gem"
       && !warningExemptGemPages.has(articlePage.id)
       && (predictionPattern.test(articleText) || occultPracticePattern.test(articleText) || spiritualPowerPattern.test(articleText) || magicalUsePattern.test(articleText) || possessionRitualPattern.test(articleText) || summonedCreaturePattern.test(articleText) || illicitPracticePattern.test(articleText));
-    if (warnForContent || (articlePage.category === "power" && flaggedPowerPages.has(articleTitleKey))) {
+    if (warnForContent || flaggedPowerPages.has(originalArticlePage.id)) {
       notices.push(makeNotice(
         "warning",
         words.warningTitle || "Warning! The page contents may contradict the Catholic Faith!",
