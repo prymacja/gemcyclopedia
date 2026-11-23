@@ -381,8 +381,8 @@
       "Powers/Divination, Dreams, and Hidden Things",
       "Powers/Spirits, Magic, and Enchantment",
     ]);
-    // Jet is Gagates. Its relevant passage describes smoke driving demons away,
-    // not invoking or summoning them; do not show the warning for that article.
+    // Jet is Gagates; its passage describes smoke driving demons away. Emerald's
+    // divination reference is descriptive. Keep both pages exempt from the warning.
     const warningExemptGemPages = new Set(["Gems/Jet", "Gems/Emerald"]);
     const warnForContent = articlePage.category === "gem"
       && !warningExemptGemPages.has(articlePage.id)
