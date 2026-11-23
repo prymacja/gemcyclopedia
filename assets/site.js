@@ -381,13 +381,15 @@
       "Powers/Divination, Dreams, and Hidden Things",
       "Powers/Spirits, Magic, and Enchantment",
     ]);
+    // This article explicitly describes calling up phantoms with magical signs.
+    const flaggedGemPages = new Set(["Gems/Magnet"]);
     // Jet is Gagates; its passage describes smoke driving demons away. Emerald's
     // divination reference is descriptive. Keep both pages exempt from the warning.
     const warningExemptGemPages = new Set(["Gems/Jet", "Gems/Emerald"]);
     const warnForContent = articlePage.category === "gem"
       && !warningExemptGemPages.has(articlePage.id)
       && (predictionPattern.test(articleText) || occultPracticePattern.test(articleText) || spiritualPowerPattern.test(articleText) || magicalUsePattern.test(articleText) || possessionRitualPattern.test(articleText) || summonedCreaturePattern.test(articleText) || illicitPracticePattern.test(articleText));
-    if (warnForContent || flaggedPowerPages.has(originalArticlePage.id)) {
+    if (warnForContent || flaggedGemPages.has(articlePage.id) || flaggedPowerPages.has(originalArticlePage.id)) {
       notices.push(makeNotice(
         "warning",
         words.warningTitle || "Warning! The page contents may contradict the Catholic Faith!",
