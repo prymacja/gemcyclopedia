@@ -226,3 +226,15 @@ html[data-theme="light"] .article-notice--warning { color: #202122; background: 
 
 /* Force the homepage title typeface across content, controls, and generated UI. */
 html, html *, html *::before, html *::after { font-family: Georgia, 'Times New Roman', serif !important; }
+
+.article-content img { cursor: zoom-in; }
+.image-lightbox[hidden] { display: none; }
+.image-lightbox { position: fixed; z-index: 1000; inset: 0; display: grid; place-items: center; padding: 3vh 3vw; background: rgba(0, 0, 0, .5); }
+.image-lightbox-panel { position: relative; display: grid; gap: 8px; max-width: 94vw; max-height: 94vh; overflow: auto; padding: 38px 14px 12px; border: 1px solid var(--line); background: var(--panel); box-shadow: 0 8px 30px rgba(0, 0, 0, .35); }
+.image-lightbox-image { display: block; max-width: 90vw; max-height: 78vh; margin: 0 auto; object-fit: contain; }
+.image-lightbox-caption { max-width: 90vw; max-height: 10vh; overflow: auto; color: var(--muted); font: italic 12px/1.45 var(--body-font); }
+.image-lightbox-caption:empty { display: none; }
+.image-lightbox-caption p { margin: 0; }
+.image-lightbox-close { position: absolute; top: 5px; right: 6px; display: grid; width: 28px; height: 28px; place-items: center; border: 1px solid var(--line); color: var(--text); background: var(--bg-soft); cursor: pointer; font: 24px/1 var(--body-font); }
+.image-lightbox-close:hover { background: var(--panel-hover); }
+body.image-lightbox-open { overflow: hidden; }

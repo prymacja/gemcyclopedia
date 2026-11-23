@@ -405,6 +405,78 @@
       articleContent.parentNode.insertBefore(noticeGroup, articleContent);
     }
   }
+  if (articleContent) {
+    const imageDialog = document.createElement("div");
+    imageDialog.className = "image-lightbox";
+    imageDialog.hidden = true;
+    imageDialog.setAttribute("role", "dialog");
+    imageDialog.setAttribute("aria-modal", "true");
+    imageDialog.setAttribute("aria-label", locale === "pl" ? "Powiększony obraz" : "Enlarged image");
+
+    const imagePanel = document.createElement("div");
+    imagePanel.className = "image-lightbox-panel";
+    const closeImageButton = document.createElement("button");
+    closeImageButton.className = "image-lightbox-close";
+    closeImageButton.type = "button";
+    closeImageButton.textContent = "×";
+    closeImageButton.setAttribute("aria-label", locale === "pl" ? "Zamknij obraz" : "Close image");
+    const enlargedImage = document.createElement("img");
+    enlargedImage.className = "image-lightbox-image";
+    const imageCaption = document.createElement("div");
+    imageCaption.className = "image-lightbox-caption";
+    imagePanel.append(closeImageButton, enlargedImage, imageCaption);
+    imageDialog.append(imagePanel);
+    document.body.append(imageDialog);
+
+    let activeArticleImage = null;
+    const closeImageDialog = () => {
+      if (imageDialog.hidden) return;
+      imageDialog.hidden = true;
+      document.body.classList.remove("image-lightbox-open");
+      activeArticleImage?.focus();
+      activeArticleImage = null;
+    };
+    const openImageDialog = (image) => {
+      activeArticleImage = image;
+      enlargedImage.src = image.currentSrc || image.src;
+      enlargedImage.alt = image.alt || "";
+      imageCaption.replaceChildren();
+      const figure = image.closest("figure");
+      const captionNode = figure?.querySelector("figcaption") || figure?.nextElementSibling;
+      if (captionNode && ["P", "FIGCAPTION"].includes(captionNode.tagName)) imageCaption.append(captionNode.cloneNode(true));
+      else if (image.alt && !/\.(?:jpe?g|png|gif|webp|svg|avif)$/i.test(image.alt.trim())) imageCaption.textContent = image.alt;
+      imageDialog.hidden = false;
+      document.body.classList.add("image-lightbox-open");
+      closeImageButton.focus();
+    };
+
+    articleContent.querySelectorAll("img").forEach((image) => {
+      image.tabIndex = 0;
+      image.setAttribute("role", "button");
+      image.setAttribute("aria-haspopup", "dialog");
+      if (!image.hasAttribute("aria-label")) {
+        const action = locale === "pl" ? "Powiększ obraz" : "Enlarge image";
+        image.setAttribute("aria-label", image.alt ? `${action}: ${image.alt}` : action);
+      }
+      image.addEventListener("click", (event) => {
+        if (image.closest("a")) event.preventDefault();
+        openImageDialog(image);
+      });
+      image.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openImageDialog(image);
+        }
+      });
+    });
+    closeImageButton.addEventListener("click", closeImageDialog);
+    imageDialog.addEventListener("click", (event) => {
+      if (event.target === imageDialog) closeImageDialog();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeImageDialog();
+    });
+  }
   const navToggle = document.getElementById("mobile-nav-toggle");
   const nav = document.getElementById("left-rail");
   navToggle?.addEventListener("click", () => {
