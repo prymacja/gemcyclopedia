@@ -306,24 +306,29 @@
     const articleText = originalArticlePage.title + " " + originalArticlePage.description + " " + originalArticlePage.searchText;
     const predictionPattern = /\b(?:divinat\w*|foretell\w*|foretold|prophec\w*|prophes\w*|oracul\w*|necroman\w*|hydroman\w*|astrolog\w*|geomanc\w*|chiromanc\w*|oneiromanc\w*|scry\w*|fortune[\s-]?tell\w*|foreknowledge|presag\w*|forecast\w*|prognosticat\w*|augur\w*)\b|\b(?:predict|foresee|foretell|forecast|presage|augur)\w*/i;
     const entities = "(?:spirits?|demons?|devils?|ghosts?|shades?|phantasms?|phantoms?|daemons?|the\\s+dead)";
-    const actions = "(?:summon\\w*|conjur\\w*|evok\\w*|invok\\w*|call\\s+(?:up|forth)|calls?\\s+(?:spirits?|demons?|ghosts?|phantasms?|phantoms?)|rais\\w*|control\\w*|commands|commanded|commanding|compel\\w*|enslav\\w*|bind\\w*|contact\\w*|communicat\\w*|speak(?:s|ing)?\\s+(?:with|to)|consult\\w*|asks|asked|asking|interrogat\\w*|obtain\\w*\\s+answers?|answer\\w*|obey\\w*)";
+    const actions = "(?:conjur\\w*|evok\\w*|invok\\w*|call\\s+(?:up|forth)|calls?\\s+(?:spirits?|demons?|ghosts?|phantasms?|phantoms?)|rais\\w*|control\\w*|commands|commanded|commanding|compel\\w*|enslav\\w*|bind\\w*|contact\\w*|communicat\\w*|speak(?:s|ing)?\\s+(?:with|to)|consult\\w*|asks|asked|asking|interrogat\\w*|obtain\\w*\\s+answers?|answer\\w*|obey\\w*)";
     const occultPracticePattern = new RegExp(
-      `(?:\\b${actions}\\b[^.!?]{0,100}\\b${entities}\\b|\\b${entities}\\b[^.!?]{0,100}\\b${actions}\\b|\\banswers?\\b[^.!?]{0,60}\\bfrom\\s+${entities}\\b|(?:summon\\w*.{0,80}(?:monster|creature)|(?:monster|creature).{0,80}summon\\w*).{0,80}(?:spell|magic|witchcraft|enchant\\w*))`,
+      `(?:\\b${actions}\\b[^.!?]{0,100}\\b${entities}\\b|\\b${entities}\\b[^.!?]{0,100}\\b${actions}\\b|\\bsummon\\w*[^.!?]{0,100}\\b${entities}\\b|\\banswers?\\b[^.!?]{0,60}\\bfrom\\s+${entities}\\b)`,
       "i",
     );
     const spiritualPowerPattern = /\b(?:power|dominion|control)\s+over\s+(?:the\s+)?(?:spirits?|demons?)\b/i;
     const magicalUsePattern = /\b(?:useful|used|employed|serves?)\b[^.!?]{0,60}\b(?:magic|magical) arts\b|\b(?:magic|magical) arts\b[^.!?]{0,60}\b(?:useful|used|employed|serves?)\b|\bmagical engravings?\b|\bmagical images?\b/i;
     const possessionRitualPattern = /\bfor possession\b[\s\S]{0,500}\b(?:demon|spirit)\w*/i;
-    const demonExpulsionPattern = /\b(?:cast(?:s|ing)? out|driv\w* away|expel\w*|banish\w*|repel\w*|chase\w* away)\b[^.!?]{0,100}\b(?:spirits?|demons?|devils?|ghosts?|shades?|phantoms?|daemons?|the dead)\b|\b(?:spirits?|demons?|devils?|ghosts?|shades?|phantoms?|daemons?|the dead)\b[^.!?]{0,100}\b(?:cast(?:s|ing)? out|driv\w* away|expel\w*|banish\w*|repel\w*|chase\w* away)\b/i;
-    const illicitPracticePattern = /\b(?:sorcer\w*|witchcraft|enchant\w*|black magic|evil arts|demonic possession)\b/i;
-    const summonedCreaturePattern = /(?:summon\w*.{0,80}\b(?:monster|creature)\b|\b(?:monster|creature)\b.{0,80}\bsummon\w*).{0,80}\b(?:spell|magic|witchcraft|enchant\w*)\b/i;
+    const illicitPracticePattern = /\b(?:practice|practise|perform|work|cast|invoke|conjure)\w*\b[^.!?]{0,80}\b(?:witchcraft|sorcer\w*|enchant\w*|black magic|evil arts)\b|\b(?:witchcraft|sorcer\w*|enchant\w*|black magic|evil arts)\b[^.!?]{0,80}\b(?:practice|practise|perform|work|cast|invoke|conjure)\w*\b/i;
+    // Match the gem actively summoning a creature; a creature merely described as
+    // summoned by someone else can occur in a protective/banishing passage.
+    const summonedCreaturePattern = /\bsummon\w*.{0,80}\b(?:monster|creature)\b.{0,80}\b(?:spell|magic|witchcraft|enchant\w*)\b/i;
     const articleTitleKey = normalize(articlePage.title).replace(/[^a-z0-9]+/g, " ").trim();
     const flaggedPowerPages = new Set([
       "divination dreams and hidden things",
       "spirits magic and enchantment",
     ]);
+    // Jet is Gagates. Its relevant passage describes smoke driving demons away,
+    // not invoking or summoning them; do not show the warning for that article.
+    const warningExemptGemPages = new Set(["Gems/Jet"]);
     const warnForContent = articlePage.category === "gem"
-      && (predictionPattern.test(articleText) || occultPracticePattern.test(articleText) || spiritualPowerPattern.test(articleText) || magicalUsePattern.test(articleText) || possessionRitualPattern.test(articleText) || demonExpulsionPattern.test(articleText) || summonedCreaturePattern.test(articleText) || illicitPracticePattern.test(articleText));
+      && !warningExemptGemPages.has(articlePage.id)
+      && (predictionPattern.test(articleText) || occultPracticePattern.test(articleText) || spiritualPowerPattern.test(articleText) || magicalUsePattern.test(articleText) || possessionRitualPattern.test(articleText) || summonedCreaturePattern.test(articleText) || illicitPracticePattern.test(articleText));
     if (warnForContent || (articlePage.category === "power" && flaggedPowerPages.has(articleTitleKey))) {
       notices.push(makeNotice(
         "warning",
