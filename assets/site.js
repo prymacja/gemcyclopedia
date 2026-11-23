@@ -323,6 +323,7 @@
         if (figures.includes(item)) imageContent.append(item);
         else if (imageCaptions.has(item)) {
           const { imageCaption, textParagraph } = imageCaptions.get(item);
+          item.remove();
           imageContent.append(imageCaption);
           if (textParagraph) textPanel.append(textParagraph);
         } else textPanel.append(item);
