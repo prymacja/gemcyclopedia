@@ -274,6 +274,64 @@
 
   const articlePage = pageById.get(currentPage);
   const articleContent = document.querySelector(".article-content");
+  // Keep variant images in compact right-hand infoboxes, parallel to their text.
+  // Source captions remain directly below each image; trailing prose stays on the left.
+  if (articlePage?.category === "gem" && articleContent) {
+    articleContent.querySelectorAll(".article-text h3[id^='subtype-']").forEach((heading) => {
+      const sectionNodes = [];
+      let node = heading.nextElementSibling;
+      while (node && !/^H[23]$/.test(node.tagName)) {
+        const next = node.nextElementSibling;
+        sectionNodes.push(node);
+        node = next;
+      }
+      const figures = sectionNodes.filter((item) => item.matches("figure.embedded-image") && item.querySelector("img"));
+      if (!figures.length) return;
+
+      const imagePanel = document.createElement("aside");
+      imagePanel.className = "article-infobox variant-infobox";
+      const imageContent = document.createElement("div");
+      imageContent.className = "infobox-image";
+      imagePanel.append(imageContent);
+      const textPanel = document.createElement("div");
+      textPanel.className = "variant-copy";
+      const layout = document.createElement("div");
+      layout.className = "variant-section-layout";
+      const imageCaptions = new Map();
+      figures.forEach((figure) => {
+        const paragraph = figure.nextElementSibling;
+        if (!paragraph || paragraph.tagName !== "P") return;
+        const firstContent = Array.from(paragraph.childNodes).find((child) => child.nodeType !== Node.TEXT_NODE || child.textContent.trim());
+        if (!firstContent || firstContent.nodeType !== Node.ELEMENT_NODE || firstContent.tagName !== "EM") return;
+
+        const trailingNodes = [];
+        let afterCaption = false;
+        Array.from(paragraph.childNodes).forEach((child) => {
+          if (child === firstContent) { afterCaption = true; return; }
+          if (afterCaption) trailingNodes.push(child.cloneNode(true));
+        });
+        const imageCaption = document.createElement("p");
+        imageCaption.className = "variant-image-source";
+        imageCaption.append(firstContent.cloneNode(true));
+        const textParagraph = document.createElement("p");
+        trailingNodes.forEach((child) => textParagraph.append(child));
+        const hasTrailingText = Boolean(textParagraph.textContent.trim() || textParagraph.querySelector("a, strong, em, span"));
+        imageCaptions.set(paragraph, { imageCaption, textParagraph: hasTrailingText ? textParagraph : null });
+      });
+
+      sectionNodes.forEach((item) => {
+        if (figures.includes(item)) imageContent.append(item);
+        else if (imageCaptions.has(item)) {
+          const { imageCaption, textParagraph } = imageCaptions.get(item);
+          imageContent.append(imageCaption);
+          if (textParagraph) textPanel.append(textParagraph);
+        } else textPanel.append(item);
+      });
+      if (textPanel.childElementCount) layout.append(textPanel);
+      layout.append(imagePanel);
+      heading.after(layout);
+    });
+  }
   if (articlePage && articleContent && ["gem", "power"].includes(articlePage.category)) {
     const notices = [];
     const makeNotice = (kind, heading, message) => {
