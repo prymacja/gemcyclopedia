@@ -386,7 +386,7 @@
     const summonedCreaturePattern = /\bsummon\w*.{0,80}\b(?:monster|creature)\b.{0,80}\b(?:spell|magic|witchcraft|enchant\w*)\b/i;
     const flaggedPowerPages = new Set([
       "Powers/Divination, Dreams, and Hidden Things",
-      "Powers/Spirits, Magic, and Enchantment",
+      "Powers/Necromancy",
     ]);
     // This article explicitly describes calling up phantoms with magical signs.
     const flaggedGemPages = new Set(["Gems/Magnet"]);
