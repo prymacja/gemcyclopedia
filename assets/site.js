@@ -250,12 +250,19 @@
   });
 
   const langSelect = document.getElementById("language-select");
+  const localeMap = data.pageLocales?.[currentPage] || {};
+  if (langSelect && localeMap.la) {
+    let latinOption = langSelect.querySelector('option[value="la"]');
+    if (!latinOption) {
+      latinOption = new Option("Latin · LA", "la");
+      langSelect.append(latinOption);
+    }
+  }
   if (langSelect) langSelect.value = locale;
   langSelect?.addEventListener("change", () => {
     const next = langSelect.value;
     if (next === locale) return;
 
-    const localeMap = data.pageLocales?.[currentPage] || {};
     let target = localeMap[next];
     if (!target && currentPage === "home") target = `${next}/index.html`;
     if (!target) return;
