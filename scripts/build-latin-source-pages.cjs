@@ -251,25 +251,6 @@ function updateLocaleMap(routes) {
   return source.slice(0, objectStart) + JSON.stringify(locales) + source.slice(objectEnd);
 }
 
-function buildIndex(pages) {
-  const cards = pages.map((page) => `<a class="index-card" href="${escapeHtml(encodeURI(page.file))}"><span class="index-card-title">${escapeHtml(page.title)}</span><span class="index-card-summary">${escapeHtml(page.extent || page.author || "Latin source text")}</span><small>${escapeHtml(page.status || "Latin text")}</small></a>`).join("");
-  return `<!DOCTYPE html>
-<html data-locale="la" data-theme="dark" lang="la"><head>
-<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="dark light" name="color-scheme"/>
-<meta content="Latin source texts and complete cited passages used by Gemcyclopedia." name="description"/><title>Source library · Latin · Gemcyclopedia</title>
-<link href="../../assets/gem-mark.svg" rel="icon" type="image/svg+xml"/><link href="../../assets/site.css?v=3" rel="stylesheet"/>
-<script defer="" src="../../assets/content-index.js?v=${contentIndexVersion}"></script><script defer="" src="../../assets/site.js?v=4"></script></head>
-<body class="content-page" data-current-page="__texts_browse__" data-site-base="../.."><header class="topbar">
-<button aria-expanded="false" aria-label="Open navigation" class="mobile-nav-toggle" id="mobile-nav-toggle">☰</button><a class="brand" href="../../en/index.html"><strong data-i18n="brand">Gemcyclopedia</strong></a>
-<div class="search-wrap"><label class="sr-only" data-i18n="searchLabel" for="site-search">Search the encyclopedia</label><input autocomplete="off" id="site-search" placeholder="Search gems, powers, places, and sources…" type="search"/><kbd>⌘ K</kbd><div class="search-results" id="search-results" role="listbox"></div></div>
-<div class="top-actions"><button aria-label="Switch light and dark appearance" class="theme-toggle" id="theme-toggle" title="Switch light and dark appearance" type="button">◐</button><label class="language-select"><span data-i18n="language">Language</span><select aria-label="Language" id="language-select"><option value="en">English · EN</option><option value="pl">Polski · PL</option></select></label></div></header>
-<div class="page-shell"><aside class="left-rail" id="left-rail"><div class="rail-label">DISCOVER</div><nav class="primary-nav"><a class="home-link" data-i18n="home" href="../../en/index.html">Home</a><a data-i18n="gems" href="../../Gems/index.html">Gems</a><a data-i18n="powers" href="../../Powers/Browse.html">Powers</a><a data-i18n="locations" href="../../Locations/Browse.html">Locations</a><a data-i18n="sources" href="index.html">Sources</a></nav></aside><main class="main-column" id="main-content">
-<div class="breadcrumbs"><a data-i18n="home" href="../../en/index.html">Home</a><span>/</span><span>Source library · Latin</span></div><div class="article-toolbar"><span class="page-type">Source library</span></div>
-<section class="index-intro"><p class="eyebrow">${pages.length} Latin texts</p><h1>Source library · Latin</h1><p>Complete texts and clearly scoped cited passages. Each entry names its edition, witness, and transcription status.</p></section>
-<section class="alpha-group"><div class="index-grid">${cards}</div></section>
-<footer class="site-footer"><span>Created by Adrian Skoczkowski 2026, Contact at: <a href="mailto:pajakiyt@gmail.com">pajakiyt@gmail.com</a></span><a href="../../en/index.html">Gemcyclopedia</a></footer></main></div></body></html>`;
-}
-
 function bumpSourcePageContentIndex() {
   for (const relativeDir of ["Texts", path.join("pl", "Texts"), path.join("la", "Texts")]) {
     const directory = path.join(siteRoot, relativeDir);
@@ -281,6 +262,177 @@ function bumpSourcePageContentIndex() {
       if (updated !== html) fs.writeFileSync(pagePath, updated, "utf8");
     }
   }
+}
+
+const latinDisplayTitles = {
+  "Aberdeen Bestiary - Fire Stones and Magnes - Latin.md": "Bestiarium Aberdonense — Loci selecti de lapidibus igniferis et magnete",
+  "Aelian - De natura animalium IV.17 and XV.8 - Latin.md": "Aeliani De natura animalium, IV.17 et XV.8 (versio Latina)",
+  "Albertus - Book of Minerals - Latin.md": "Albertus Magnus — De mineralibus, liber II, tractatus II",
+  "Ambrose - Hexaemeron V.33 - Latin.md": "Ambrosius — Hexaemeron V.33",
+  "Augustine - City of God XXI.4 - Latin.md": "Augustinus — De civitate Dei XXI.4",
+  "Bartholomaeus - De proprietatibus rerum Book XVI - Latin.md": "Bartholomaeus Anglicus — De proprietatibus rerum, liber XVI",
+  "Bartholomaeus - De proprietatibus rerum XIII.26 and XVIII.68 - Latin.md": "Bartholomaeus Anglicus — De proprietatibus rerum, loci XIII.26 et XVIII.68",
+  "Camillo Leonardi - Speculum Lapidum - Latin.md": "Camillus Leonardi — Speculum lapidum (textus integer)",
+  "Camillo Leonardi - Speculum Lapidum cited entries - Latin.md": "Camillus Leonardi — Speculum lapidum, loci selecti",
+  "Epiphanius - On the Twelve Gemstones - Latin.md": "Epiphanius — Liber de XII gemmis (versio Latina)",
+  "Hildegard - Physica Stones - Latin.md": "Hildegardis Bingenensis — Physica, liber IV: De lapidibus",
+  "Isidore - Etymologies Book XVI - Latin.md": "Isidorus Hispalensis — Etymologiae, liber XVI: De lapidibus et metallis",
+  "Isidore - Etymologies XII.6.49, 51-53 - Latin.md": "Isidorus Hispalensis — Etymologiae XII.6.49, 51–53",
+  "Jacques de Vitry - Historia orientalis, cited passages 88 and 90 - Latin.md": "Iacobus de Vitriaco — Historia orientalis, capita LXXXVIII et XC",
+  "Marbodus - De lapidibus - Latin.md": "Marbodus Redonensis — Liber lapidum",
+  "Other Sources - Latin.md": "Fontes ceteri — loci Latini",
+  "Ovid - Metamorphoses XV.391-417 - Latin.md": "P. Ovidius Naso — Metamorphoses XV.391–417",
+  "Physiologus Version Y - Piroboli and Lapis Indicus - Latin.md": "Physiologus Latinus, versio Y — De lapidibus pirobolis et de lapide senditicho",
+  "Pliny - Naturalis Historia IX.35 Pearls - Latin.md": "C. Plinius Secundus — Naturalis historia IX.35.105–124",
+  "Pliny - Naturalis Historia VIII.57 Lynx-stone - Latin.md": "C. Plinius Secundus — Naturalis historia VIII.57: De lyncurio",
+  "Solinus - Collectanea rerum memorabilium - Latin.md": "C. Iulius Solinus — Collectanea rerum memorabilium",
+  "Thomas Aquinas - De operationibus occultis naturae - Latin.md": "Thomas Aquinas — De occultis operibus naturae ad quemdam militem (seu De impressione corporum coelestium)",
+  "Thomas Cantimpre - Liber de natura rerum - Latin.md": "Thomas Cantimpratensis — Liber de natura rerum, liber XIV",
+  "Thomas Cantimpre - Liber de natura rerum IV.15, IV.58, IV.61 - Latin.md": "Thomas Cantimpratensis — Liber de natura rerum, capita IV.15, IV.58 et IV.61",
+};
+
+const latinSourceStarts = {
+  "Aberdeen Bestiary - Fire Stones and Magnes - Latin.md": "## De lapidibus igniferis",
+  "Aelian - De natura animalium IV.17 and XV.8 - Latin.md": "## Liber IV, §17",
+  "Albertus - Book of Minerals - Latin.md": "TRACTATUS II",
+  "Ambrose - Hexaemeron V.33 - Latin.md": "## V.33",
+  "Augustine - City of God XXI.4 - Latin.md": "### 4.1",
+  "Bartholomaeus - De proprietatibus rerum Book XVI - Latin.md": "De lapidibus terre",
+  "Bartholomaeus - De proprietatibus rerum XIII.26 and XVIII.68 - Latin.md": "## Liber XIII, capitulum XXVI",
+  "Camillo Leonardi - Speculum Lapidum - Latin.md": "Quicquid in humanos gemmarum parturit usus",
+  "Camillo Leonardi - Speculum Lapidum cited entries - Latin.md": "## Egyptilla",
+  "Epiphanius - On the Twelve Gemstones - Latin.md": "### §1",
+  "Hildegard - Physica Stones - Latin.md": "## Praefatio",
+  "Isidore - Etymologies Book XVI - Latin.md": "## Chapter 1",
+  "Isidore - Etymologies XII.6.49, 51-53 - Latin.md": "### XII.6.49",
+  "Jacques de Vitry - Historia orientalis, cited passages 88 and 90 - Latin.md": "## Chapter LXXXVIII",
+  "Marbodus - De lapidibus - Latin.md": "Gemmis a gummi",
+  "Ovid - Metamorphoses XV.391-417 - Latin.md": "391  Haec tamen",
+  "Physiologus Version Y - Piroboli and Lapis Indicus - Latin.md": "## De lapidibus pirobolis",
+  "Pliny - Naturalis Historia IX.35 Pearls - Latin.md": "### Naturalis historia IX.35.105",
+  "Pliny - Naturalis Historia VIII.57 Lynx-stone - Latin.md": "Lyncum umor",
+  "Solinus - Collectanea rerum memorabilium - Latin.md": "## Praefatio",
+  "Thomas Aquinas - De operationibus occultis naturae - Latin.md": "Quoniam in quibusdam naturalibus",
+  "Thomas Cantimpre - Liber de natura rerum - Latin.md": "## Prologus",
+  "Thomas Cantimpre - Liber de natura rerum IV.15, IV.58, IV.61 - Latin.md": "## IV.15",
+};
+
+const editorialBlock = /^(?:>\s*)?\*\*(?:Witness|Text note|Textual scope|Edition|Language|Extent|Coverage|Transcription|Digital witness|Digital sources|Online text|Reference|OCR note|Reading note|Name distinction|Boundary note|Scope|License|Source edition|Source status|Printed source|Parallel text|Citation note|Text source|Editorial note|Complete cited passage|Digital text|Witness and|Witness distinction|Chapter-number crosswalk|Independent witness|Complete extent|Contents from the edition|Edition limitation|Text and provenance|Transcription and limits|Frontmatter|Attribution)/i;
+const stopHeading = /^(?:Edition(?: and|\b)|Text and edition|Attribution|Transcription limits|Source status|Book IV citations not yet transcribed|Witness, scope|Witness and edition links|Digital witness and scan links|Frontmatter)\b/i;
+
+function extractExternalLinks(markdown, raw) {
+  const found = [];
+  const add = (label, url) => {
+    const cleanUrl = String(url || "").trim().replace(/[)>.,;]+$/, "");
+    if (!/^https?:\/\//i.test(cleanUrl) || found.some((entry) => entry.url === cleanUrl)) return;
+    const cleanLabel = String(label || "").replace(/[*_`]/g, "").trim();
+    found.push({ label: cleanLabel, url: cleanUrl });
+  };
+  for (const match of markdown.matchAll(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g)) add(match[1], match[2]);
+  const yaml = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if (yaml) {
+    let activeKey = "source";
+    for (const line of yaml[1].split(/\r?\n/)) {
+      const field = line.match(/^([A-Za-z0-9_-]+):\s*(.*)$/);
+      if (field) {
+        activeKey = field[1].replaceAll("_", " ");
+        const valueUrl = field[2].match(/https?:\/\/[^\s"']+/);
+        if (valueUrl) add(activeKey, valueUrl[0]);
+      } else {
+        const listUrl = line.match(/^\s*-\s*["']?(https?:\/\/[^\s"']+)/);
+        if (listUrl) add(activeKey, listUrl[1]);
+      }
+    }
+  }
+  return found;
+}
+
+function latinizedHeading(block) {
+  return block.replace(/^(#{2,6}\s+)Chapter\s+(\d+)\s+—\s*/i, (_, hashes, number) => {
+    const values = [[1000,"M"],[900,"CM"],[500,"D"],[400,"CD"],[100,"C"],[90,"XC"],[50,"L"],[40,"XL"],[10,"X"],[9,"IX"],[5,"V"],[4,"IV"],[1,"I"]];
+    let n = Number(number), roman = "";
+    for (const [value, symbol] of values) while (n >= value) { roman += symbol; n -= value; }
+    return hashes + "Caput " + roman + " — ";
+  }).replace(/^(#{2,6}\s+)Chapter\s+([IVXLCDM]+)\s+—\s*/i, "$1Caput $2 — ")
+    .replace(/^(#{2,6}\s+)Liber IV,\s*§17\s+—.*$/i, "$1Liber IV, caput XVII")
+    .replace(/^(#{2,6}\s+)Liber XV,\s*§8\s+—.*$/i, "$1Liber XV, caput VIII")
+    .replace(/^(#{2,6}\s+)Chapter LXXXVIII\s+—\s*\*?De feris\*?:.*$/i, "$1Caput LXXXVIII — De feris")
+    .replace(/^(#{2,6}\s+)Chapter XC\s+—\s*\*?De avibus quibusdam et piscibus raris\*?:.*$/i, "$1Caput XC — De avibus quibusdam et piscibus raris");
+}
+
+function collectionMarkdown(body) {
+  const entries = [];
+  for (const match of body.matchAll(/^\s*-\s*\[([^\]]+)\]\(([^)]+)\)/gm)) {
+    const target = decodeURIComponent(match[2].replace(/%20/g, " "));
+    const inputName = Object.keys(latinDisplayTitles).find((name) => name.replace(/\.md$/i, ".html") === target);
+    if (inputName) entries.push({ href: match[2], title: latinDisplayTitles[inputName] });
+  }
+  const first = entries.slice(0, 15), second = entries.slice(15);
+  return "# Fontes ceteri — loci Latini\n\n## De lapidibus et animalibus\n\n" +
+    first.map((entry) => "- [" + entry.title + "](" + entry.href + ")").join("\n") +
+    "\n\n## De margaritis aliisque rebus\n\n" +
+    second.map((entry) => "- [" + entry.title + "](" + entry.href + ")").join("\n");
+}
+
+function prepareLatinSource(inputFile, body, raw) {
+  const links = extractExternalLinks(body, raw);
+  if (inputFile === "Other Sources - Latin.md") {
+    return { markdown: collectionMarkdown(body), links, preview: "Sunt lapides igniferi in quodam monte Orientis, qui Graece terrobolem dicuntur, masculus et femina." };
+  }
+  const marker = latinSourceStarts[inputFile];
+  if (!marker) throw new Error("No Latin text start marker for " + inputFile);
+  const blocks = body.replace(/\r/g, "").split(/\n\s*\n/).map((block) => block.trim()).filter(Boolean);
+  const start = blocks.findIndex((block) => block.toLowerCase().includes(marker.toLowerCase()));
+  if (start < 0) throw new Error("Latin text start marker not found in " + inputFile + ": " + marker);
+  const kept = [];
+  for (const original of blocks.slice(start)) {
+    const block = original.trim();
+    const firstLine = block.split("\n", 1)[0].trim();
+    const heading = firstLine.match(/^#{1,6}\s+(.+)$/);
+    if (heading) {
+      const title = heading[1].replace(/[*_`]/g, "").trim();
+      if (stopHeading.test(title)) break;
+      if (/^(?:Textus Latinus|Latin|Text|Edition and digital sources?)$/i.test(title)) continue;
+      if (/^Frontmatter$/i.test(title)) break;
+    }
+    if (editorialBlock.test(block) || /^This transcription follows\b/i.test(block) || /^Two readings\b/i.test(block) || /^The original 1597 print\b/i.test(block)) continue;
+    if (/^\s*[-*]\s*\[[^\]]+\]\(https?:\/\//i.test(block) || /\]\(https?:\/\//i.test(block)) continue;
+    if (/^\s*---+\s*$/.test(block)) continue;
+    if (/^\s*#\s/.test(block)) continue;
+    kept.push(latinizedHeading(block));
+  }
+  const markdown = kept.join("\n\n");
+  const isPreviewText = (block) => {
+    if (/^#{1,6}\s/.test(block) || /^\s*[-*]\s/.test(block) || /^\*\*/.test(block)) return false;
+    const plain = block.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/[*_`>]/g, "").replace(/\s+/g, " ").trim();
+    return plain.length >= 30 && !/^[A-Z\s.,;:]+$/.test(plain);
+  };
+  const previewCandidates = kept.filter(isPreviewText);
+  const previewBlock = previewCandidates.find((block) => block.replace(/\s+/g, " ").trim().length >= 75) || previewCandidates[0];
+  const previewText = previewBlock ? previewBlock.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/[*_`>]/g, "").replace(/\s+/g, " ").trim() : "";
+  const preview = previewText.length > 145 ? previewText.slice(0, 145).replace(/\s+\S*$/, "").replace(/[ ,;:]+$/, "") + "…" : previewText;
+  return { markdown, links, preview };
+}
+
+function simpleSourceLinks(author, fallbackTitle, links) {
+  const sourceAuthor = author || fallbackTitle;
+  return links.map((entry) => {
+    const label = entry.label || fallbackTitle;
+    const url = escapeHtml(entry.url);
+    return "<p>" + escapeHtml(sourceAuthor) + " — " + escapeHtml(label) + " — <a href=\"" + url + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + url + "</a></p>";
+  }).join("\n");
+}
+
+function buildIndex(pages) {
+  const sorted = [...pages].sort((a, b) => a.title.localeCompare(b.title, "en"));
+  const letters = [...new Set(sorted.map((page) => page.title.normalize("NFKD").replace(/[^A-Za-z]/g, "").charAt(0).toUpperCase()).filter(Boolean))];
+  const nav = letters.map((letter) => "<a href=\"#letter-" + letter.toLowerCase() + "\">" + letter + "</a>").join("");
+  const groups = letters.map((letter) => {
+    const cards = sorted.filter((page) => page.title.normalize("NFKD").replace(/[^A-Za-z]/g, "").charAt(0).toUpperCase() === letter)
+      .map((page) => "<a class=\"index-card\" href=\"" + escapeHtml(encodeURI(page.file)) + "\"><span class=\"index-card-title\">" + escapeHtml(page.title) + "</span><span class=\"index-card-summary\">" + escapeHtml(page.summary || "") + "</span></a>").join("");
+    return "<section class=\"alpha-group\" id=\"letter-" + letter.toLowerCase() + "\"><h2>" + letter + "</h2><div class=\"index-grid\">" + cards + "</div></section>";
+  }).join("");
+  return "<!DOCTYPE html>\n<html data-locale=\"la\" data-theme=\"dark\" lang=\"la\"><head>\n<meta charset=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=\"viewport\"/><meta content=\"dark light\" name=\"color-scheme\"/>\n<meta content=\"Fontes Latini Gemcyclopediae.\" name=\"description\"/><title>Fontes Latini · Gemcyclopedia</title>\n<link href=\"../../assets/gem-mark.svg\" rel=\"icon\" type=\"image/svg+xml\"/><link href=\"../../assets/site.css?v=3\" rel=\"stylesheet\"/>\n<script defer=\"\" src=\"../../assets/content-index.js?v=" + contentIndexVersion + "\"></script><script defer=\"\" src=\"../../assets/site.js?v=4\"></script></head>\n<body class=\"content-page\" data-current-page=\"__texts_browse__\" data-site-base=\"../..\"><header class=\"topbar\">\n<button aria-expanded=\"false\" aria-label=\"Open navigation\" class=\"mobile-nav-toggle\" id=\"mobile-nav-toggle\">☰</button><a class=\"brand\" href=\"../../en/index.html\"><strong data-i18n=\"brand\">Gemcyclopedia</strong></a>\n<div class=\"search-wrap\"><label class=\"sr-only\" data-i18n=\"searchLabel\" for=\"site-search\">Search the encyclopedia</label><input autocomplete=\"off\" id=\"site-search\" placeholder=\"Search gems, powers, places, and sources…\" type=\"search\"/><kbd>⌘ K</kbd><div class=\"search-results\" id=\"search-results\" role=\"listbox\"></div></div>\n<div class=\"top-actions\"><button aria-label=\"Switch light and dark appearance\" class=\"theme-toggle\" id=\"theme-toggle\" title=\"Switch light and dark appearance\" type=\"button\">◐</button><label class=\"language-select\"><span data-i18n=\"language\">Language</span><select aria-label=\"Language\" id=\"language-select\"><option value=\"en\">English · EN</option><option value=\"pl\">Polski · PL</option></select></label></div></header>\n<div class=\"page-shell\"><aside class=\"left-rail\" id=\"left-rail\"><div class=\"rail-label\">DISCOVER</div><nav class=\"primary-nav\"><a class=\"home-link\" data-i18n=\"home\" href=\"../../en/index.html\">Home</a><a data-i18n=\"gems\" href=\"../../Gems/index.html\">Gems</a><a data-i18n=\"powers\" href=\"../../Powers/Browse.html\">Powers</a><a data-i18n=\"locations\" href=\"../../Locations/Browse.html\">Locations</a><a data-i18n=\"sources\" href=\"index.html\">Sources</a></nav></aside><main class=\"main-column\" id=\"main-content\">\n<div class=\"breadcrumbs\"><a data-i18n=\"home\" href=\"../../en/index.html\">Home</a><span>/</span><span>Fontes Latini</span></div><div class=\"article-toolbar\"><span class=\"page-type\">Bibliotheca fontium</span></div>\n<section class=\"index-intro\"><p class=\"eyebrow\">" + pages.length + " textus Latini</p><h1>Fontes Latini</h1><div class=\"letter-nav\">" + nav + "</div></section>" + groups + "\n<footer class=\"site-footer\"><span>Created by Adrian Skoczkowski 2026, Contact at: <a href=\"mailto:pajakiyt@gmail.com\">pajakiyt@gmail.com</a></span><a href=\"../../en/index.html\">Gemcyclopedia</a></footer></main></div></body></html>";
 }
 
 function main() {
@@ -297,12 +449,13 @@ function main() {
     const mapping = localePages[inputFile];
     const outputFile = mapping?.file || inputFile.replace(/\.md$/i, ".html");
     const id = mapping?.id || `Texts/Latin/${slug(firstHeading(body, frontMatter.title || inputFile))}`;
-    const title = firstHeading(body, frontMatter.title || inputFile.replace(/\.md$/i, ""));
-    const description = frontMatter.extent || frontMatter.source || "Latin source text";
-    const content = markdownToHtml(body);
+    const title = latinDisplayTitles[inputFile] || firstHeading(body, frontMatter.title || inputFile.replace(/\.md$/i, ""));
+    const prepared = prepareLatinSource(inputFile, body, raw);
+    const description = "Latin source text";
+    const content = markdownToHtml(prepared.markdown) + "\n" + simpleSourceLinks(frontMatter.author || title, title, prepared.links);
     const outputPath = path.join(outputDir, outputFile);
     fs.writeFileSync(outputPath, shell({ title, description, pageId: id, content, hasLocaleMap: Boolean(mapping) }), "utf8");
-    pages.push({ file: outputFile, title: frontMatter.title || title, author: frontMatter.author || "", extent: frontMatter.extent || "", status: frontMatter.status || "Latin text" });
+    pages.push({ file: outputFile, title, author: frontMatter.author || "", summary: prepared.preview || "" });
     if (mapping) routeMap[mapping.id] = `la/Texts/${outputFile}`;
   }
   fs.writeFileSync(path.join(outputDir, "index.html"), buildIndex(pages), "utf8");
