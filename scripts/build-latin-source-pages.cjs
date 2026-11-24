@@ -7,6 +7,7 @@ const path = require("node:path");
 const siteRoot = path.resolve(__dirname, "..");
 const vaultTexts = process.env.GEMCYCLOPEDIA_VAULT_TEXTS || "D:/Obsidian/Gemcyclopedia/Texts";
 const outputDir = path.join(siteRoot, "la", "Texts");
+const contentIndexVersion = 4;
 // Only map pages whose complete standalone text or complete cited passages are present.
 const localePages = {
   "Albertus - Book of Minerals - Latin.md": {
@@ -189,7 +190,7 @@ function shell({ title, description, pageId, content, hasLocaleMap }) {
 <title>${escapeHtml(title)} · Gemcyclopedia</title>
 <link href="../../assets/gem-mark.svg" rel="icon" type="image/svg+xml"/>
 <link href="../../assets/site.css?v=3" rel="stylesheet"/>
-<script defer="" src="../../assets/content-index.js?v=4"></script>
+<script defer="" src="../../assets/content-index.js?v=${contentIndexVersion}"></script>
 <script defer="" src="../../assets/site.js?v=4"></script>
 <style>.article-text{line-height:1.75}.article-text pre{white-space:pre-wrap;overflow-wrap:anywhere;font-family:Georgia,serif}.latin-verse-line{display:grid;grid-template-columns:2.8em minmax(0,1fr);font-family:Georgia,serif;line-height:1.55}.latin-line-number{color:var(--muted,#777);font-size:.8em;text-align:right;padding-right:.8em;user-select:none}</style>
 </head>
@@ -257,7 +258,7 @@ function buildIndex(pages) {
 <meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="dark light" name="color-scheme"/>
 <meta content="Latin source texts and complete cited passages used by Gemcyclopedia." name="description"/><title>Source library · Latin · Gemcyclopedia</title>
 <link href="../../assets/gem-mark.svg" rel="icon" type="image/svg+xml"/><link href="../../assets/site.css?v=3" rel="stylesheet"/>
-<script defer="" src="../../assets/content-index.js?v=4"></script><script defer="" src="../../assets/site.js?v=4"></script></head>
+<script defer="" src="../../assets/content-index.js?v=${contentIndexVersion}"></script><script defer="" src="../../assets/site.js?v=4"></script></head>
 <body class="content-page" data-current-page="__texts_browse__" data-site-base="../.."><header class="topbar">
 <button aria-expanded="false" aria-label="Open navigation" class="mobile-nav-toggle" id="mobile-nav-toggle">☰</button><a class="brand" href="../../en/index.html"><strong data-i18n="brand">Gemcyclopedia</strong></a>
 <div class="search-wrap"><label class="sr-only" data-i18n="searchLabel" for="site-search">Search the encyclopedia</label><input autocomplete="off" id="site-search" placeholder="Search gems, powers, places, and sources…" type="search"/><kbd>⌘ K</kbd><div class="search-results" id="search-results" role="listbox"></div></div>
@@ -276,7 +277,7 @@ function bumpSourcePageContentIndex() {
       if (!file.toLowerCase().endsWith(".html")) continue;
       const pagePath = path.join(directory, file);
       const html = fs.readFileSync(pagePath, "utf8");
-      const updated = html.replace(new RegExp("(content-index[.]js[?]v=)[0-9]+", "g"), "$1" + "4");
+      const updated = html.replace(new RegExp("(content-index[.]js[?]v=)([0-9]+)", "g"), (_, prefix, version) => `${prefix}${Math.max(contentIndexVersion, Number(version))}`);
       if (updated !== html) fs.writeFileSync(pagePath, updated, "utf8");
     }
   }
