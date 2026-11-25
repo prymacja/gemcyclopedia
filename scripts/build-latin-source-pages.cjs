@@ -30,9 +30,17 @@ const localePages = {
     id: "Texts/Hildegard - Physica Stones",
     file: "Hildegard - Physica Stones - Latin.html",
   },
+  "Isidore - Etymologies - Latin.md": {
+    id: "Texts/Isidore - Etymologies Book XVI",
+    file: "Isidore - Etymologies - Latin.html",
+  },
   "Isidore - Etymologies Book XVI - Latin.md": {
     id: "Texts/Isidore - Etymologies Book XVI",
     file: "Isidore - Etymologies Book XVI - Latin.html",
+  },
+  "Pliny - Naturalis historia - Latin.md": {
+    id: "Texts/Pliny - Naturalis historia",
+    file: "Pliny - Naturalis historia - Latin.html",
   },
   "Marbodus - De lapidibus - Latin.md": {
     id: "Texts/Marbodus - De lapidibus",
@@ -82,6 +90,50 @@ const excludedLatinSources = new Map([
   ["Thomas Cantimpre - Liber de natura rerum - Latin.md", {
     reason: "The Book XIV OCR core remains uncollated.",
     legacyFiles: ["Thomas Cantimpre - Liber de natura rerum.html"],
+  }],
+  ["Isidore - Etymologies Book XVI - Latin.md", {
+    reason: "Consolidated into the combined Etymologiae source page.",
+    legacyFiles: ["Isidore - Etymologies Book XVI - Latin.html"],
+  }],
+  ["Isidore - Etymologies XII.6.49, 51-53 - Latin.md", {
+    reason: "Consolidated into the combined Etymologiae source page.",
+    legacyFiles: ["Isidore - Etymologies XII.6.49, 51-53 - Latin.html"],
+  }],
+  ["Pliny - Naturalis Historia VIII.57 Lynx-stone - Latin.md", {
+    reason: "Consolidated into the Naturalis historia source page.",
+    legacyFiles: ["Pliny - Naturalis Historia VIII.57 Lynx-stone - Latin.html"],
+  }],
+  ["Pliny - Naturalis Historia IX.35 Pearls - Latin.md", {
+    reason: "Consolidated into the Naturalis historia source page.",
+    legacyFiles: ["Pliny - Naturalis Historia IX.35 Pearls - Latin.html"],
+  }],
+  ["Thomas Cantimpre - Liber XIV.1-15 collation - Latin.md", {
+    reason: "Working manuscript-collation note, not a finished source page.",
+    legacyFiles: ["Thomas Cantimpre - Liber XIV.1-15 collation - Latin.html"],
+  }],
+  ["Thomas Cantimpre - Liber XIV.1-15 full transcription - Latin.md", {
+    reason: "Working manuscript transcription batch awaiting consolidation.",
+    legacyFiles: ["Thomas Cantimpre - Liber XIV.1-15 full transcription - Latin.html"],
+  }],
+  ["Thomas Cantimpre - Liber XIV.16-30 collation - Latin.md", {
+    reason: "Working manuscript-collation note, not a finished source page.",
+    legacyFiles: ["Thomas Cantimpre - Liber XIV.16-30 collation - Latin.html"],
+  }],
+  ["Thomas Cantimpre - Liber XIV.16-30 full transcription - Latin.md", {
+    reason: "Working manuscript transcription batch awaiting consolidation.",
+    legacyFiles: ["Thomas Cantimpre - Liber XIV.16-30 full transcription - Latin.html"],
+  }],
+  ["Thomas Cantimpre - Liber XIV.31-45 collation - Latin.md", {
+    reason: "Working manuscript-collation note, not a finished source page.",
+    legacyFiles: ["Thomas Cantimpre - Liber XIV.31-45 collation - Latin.html"],
+  }],
+  ["Thomas Cantimpre - Liber XIV.46-60 collation - Latin.md", {
+    reason: "Working manuscript-collation note, not a finished source page.",
+    legacyFiles: ["Thomas Cantimpre - Liber XIV.46-60 collation - Latin.html"],
+  }],
+  ["Thomas Cantimpre - Liber XIV.61-71 collation - Latin.md", {
+    reason: "Working manuscript-collation note, not a finished source page.",
+    legacyFiles: ["Thomas Cantimpre - Liber XIV.61-71 collation - Latin.html"],
   }],
 ]);
 
@@ -332,7 +384,7 @@ function bumpSourcePageContentIndex() {
 
 const latinDisplayTitles = {
   "Aberdeen Bestiary - Fire Stones and Magnes - Latin.md": "Bestiarium Aberdonense — Loci selecti de lapidibus igniferis et magnete",
-  "Aelian - De natura animalium IV.17 and XV.8 - Latin.md": "Aeliani De natura animalium, IV.17 et XV.8 (versio Latina)",
+  "Aelian - De natura animalium IV.17 and XV.8 - Latin.md": "Aeliani De natura animalium, IV.17 et XV.8",
   "Albertus - Book of Minerals - Latin.md": "Albertus Magnus — De mineralibus, liber II, tractatus II",
   "Ambrose - Hexaemeron V.33 - Latin.md": "Ambrosius — Hexaemeron V.33",
   "Augustine - City of God XXI.4 - Latin.md": "Augustinus — De civitate Dei XXI.4",
@@ -340,8 +392,9 @@ const latinDisplayTitles = {
   "Bartholomaeus - De proprietatibus rerum XIII.26 and XVIII.68 - Latin.md": "Bartholomaeus Anglicus — De proprietatibus rerum, loci XIII.26 et XVIII.68",
   "Camillo Leonardi - Speculum Lapidum - Latin.md": "Camillus Leonardi — Speculum lapidum (textus integer)",
   "Camillo Leonardi - Speculum Lapidum cited entries - Latin.md": "Camillus Leonardi — Speculum lapidum, loci selecti",
-  "Epiphanius - On the Twelve Gemstones - Latin.md": "Epiphanius — Liber de XII gemmis (versio Latina)",
+  "Epiphanius - On the Twelve Gemstones - Latin.md": "Epiphanius — Liber de XII gemmis",
   "Hildegard - Physica Stones - Latin.md": "Hildegardis Bingenensis — Physica, liber IV: De lapidibus",
+  "Isidore - Etymologies - Latin.md": "Isidorus Hispalensis — Etymologiae",
   "Isidore - Etymologies Book XVI - Latin.md": "Isidorus Hispalensis — Etymologiae, liber XVI: De lapidibus et metallis",
   "Isidore - Etymologies XII.6.49, 51-53 - Latin.md": "Isidorus Hispalensis — Etymologiae XII.6.49, 51–53",
   "Jacques de Vitry - Historia orientalis, cited passages 88 and 90 - Latin.md": "Iacobus de Vitriaco — Historia orientalis, capita LXXXVIII et XC",
@@ -349,6 +402,7 @@ const latinDisplayTitles = {
   "Other Sources - Latin.md": "Fontes ceteri — loci Latini",
   "Ovid - Metamorphoses XV.391-417 - Latin.md": "P. Ovidius Naso — Metamorphoses XV.391–417",
   "Physiologus Version Y - Piroboli and Lapis Indicus - Latin.md": "Physiologus Latinus, versio Y — De lapidibus pirobolis et de lapide senditicho",
+  "Pliny - Naturalis historia - Latin.md": "C. Plinius Secundus — Naturalis historia",
   "Pliny - Naturalis Historia IX.35 Pearls - Latin.md": "C. Plinius Secundus — Naturalis historia IX.35.105–124",
   "Pliny - Naturalis Historia VIII.57 Lynx-stone - Latin.md": "C. Plinius Secundus — Naturalis historia VIII.57: De lyncurio",
   "Solinus - Collectanea rerum memorabilium - Latin.md": "C. Iulius Solinus — Collectanea rerum memorabilium",
@@ -369,12 +423,14 @@ const latinSourceStarts = {
   "Camillo Leonardi - Speculum Lapidum cited entries - Latin.md": "## Egyptilla",
   "Epiphanius - On the Twelve Gemstones - Latin.md": "### §1",
   "Hildegard - Physica Stones - Latin.md": "## Praefatio",
+  "Isidore - Etymologies - Latin.md": "Concharum multa genera sunt;",
   "Isidore - Etymologies Book XVI - Latin.md": "## Chapter 1",
   "Isidore - Etymologies XII.6.49, 51-53 - Latin.md": "### XII.6.49",
   "Jacques de Vitry - Historia orientalis, cited passages 88 and 90 - Latin.md": "## Chapter LXXXVIII",
   "Marbodus - De lapidibus - Latin.md": "Gemmis a gummi",
   "Ovid - Metamorphoses XV.391-417 - Latin.md": "391  Haec tamen",
   "Physiologus Version Y - Piroboli and Lapis Indicus - Latin.md": "## De lapidibus pirobolis",
+  "Pliny - Naturalis historia - Latin.md": "Lyncum umor",
   "Pliny - Naturalis Historia IX.35 Pearls - Latin.md": "### Naturalis historia IX.35.105",
   "Pliny - Naturalis Historia VIII.57 Lynx-stone - Latin.md": "Lyncum umor",
   "Solinus - Collectanea rerum memorabilium - Latin.md": "## Praefatio",
