@@ -127,13 +127,25 @@ const excludedLatinSources = new Map([
     reason: "Working manuscript-collation note, not a finished source page.",
     legacyFiles: ["Thomas Cantimpre - Liber XIV.31-45 collation - Latin.html"],
   }],
+  ["Thomas Cantimpre - Liber XIV.31-45 full transcription - Latin.md", {
+    reason: "Working manuscript transcription batch awaiting consolidation.",
+    legacyFiles: ["Thomas Cantimpre - Liber XIV.31-45 full transcription - Latin.html"],
+  }],
   ["Thomas Cantimpre - Liber XIV.46-60 collation - Latin.md", {
     reason: "Working manuscript-collation note, not a finished source page.",
     legacyFiles: ["Thomas Cantimpre - Liber XIV.46-60 collation - Latin.html"],
   }],
+  ["Thomas Cantimpre - Liber XIV.46-60 full transcription - Latin.md", {
+    reason: "Working manuscript transcription batch awaiting consolidation.",
+    legacyFiles: ["Thomas Cantimpre - Liber XIV.46-60 full transcription - Latin.html"],
+  }],
   ["Thomas Cantimpre - Liber XIV.61-71 collation - Latin.md", {
     reason: "Working manuscript-collation note, not a finished source page.",
     legacyFiles: ["Thomas Cantimpre - Liber XIV.61-71 collation - Latin.html"],
+  }],
+  ["Thomas Cantimpre - Liber XIV.61-71 full transcription - Latin.md", {
+    reason: "Working manuscript transcription batch awaiting consolidation.",
+    legacyFiles: ["Thomas Cantimpre - Liber XIV.61-71 full transcription - Latin.html"],
   }],
 ]);
 
