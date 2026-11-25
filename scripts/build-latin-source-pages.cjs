@@ -55,6 +55,30 @@ const excludedLatinSources = new Map([
     reason: "The selected extracts do not cover the current cited-entry scope.",
     legacyFiles: [],
   }],
+  ["Camillo Leonardi - Speculum Lapidum cited entries A-B batch - Latin.md", {
+    reason: "Working alphabetic batch; it is not yet consolidated with the full cited-entry scope.",
+    legacyFiles: [],
+  }],
+  ["Camillo Leonardi - Speculum Lapidum cited entries C batch - Latin.md", {
+    reason: "Separate scan-collated batch; it is not yet consolidated with the full cited-entry scope.",
+    legacyFiles: [],
+  }],
+  ["Camillo Leonardi - Speculum Lapidum cited entries D-H batch - Latin.md", {
+    reason: "Working alphabetic batch; it is not yet consolidated with the full cited-entry scope.",
+    legacyFiles: [],
+  }],
+  ["Camillo Leonardi - Speculum Lapidum cited entries I-M batch - Latin.md", {
+    reason: "Working alphabetic batch; it is not yet consolidated with the full cited-entry scope.",
+    legacyFiles: [],
+  }],
+  ["Camillo Leonardi - Speculum Lapidum cited entries N-R batch - Latin.md", {
+    reason: "Separate scan-collated batch; it is not yet consolidated with the full cited-entry scope.",
+    legacyFiles: [],
+  }],
+  ["Camillo Leonardi - Speculum Lapidum cited entries S-Z batch - Latin.md", {
+    reason: "Separate scan-collated batch; it is not yet consolidated with the full cited-entry scope.",
+    legacyFiles: [],
+  }],
   ["Thomas Cantimpre - Liber de natura rerum - Latin.md", {
     reason: "The Book XIV OCR core remains uncollated.",
     legacyFiles: ["Thomas Cantimpre - Liber de natura rerum.html"],
