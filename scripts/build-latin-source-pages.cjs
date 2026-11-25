@@ -18,6 +18,10 @@ const localePages = {
     id: "Texts/Augustine - City of God XXI.4 Excerpts",
     file: "Augustine - City of God XXI.4 - Latin.html",
   },
+  "Bartholomaeus - De proprietatibus rerum Book XVI - Latin.md": {
+    id: "Texts/Bartholomaeus Anglicanus - De proprietatibus rerum",
+    file: "Bartholomaeus - De proprietatibus rerum Book XVI - Latin.html",
+  },
   "Epiphanius - On the Twelve Gemstones - Latin.md": {
     id: "Texts/Epiphanius - On the Twelve Gemstones",
     file: "Epiphanius - On the Twelve Gemstones - Latin.html",
@@ -39,6 +43,23 @@ const localePages = {
     file: "Thomas Aquinas - De operationibus occultis naturae - Latin.html",
   },
 };
+
+// Keep these unreviewed working copies out of generated Latin pages. Remove an entry
+// here when its transcription is ready to publish; the vault Markdown stays intact.
+const excludedLatinSources = new Map([
+  ["Camillo Leonardi - Speculum Lapidum - Latin.md", {
+    reason: "Full OCR working copy is not scan-collated.",
+    legacyFiles: [],
+  }],
+  ["Camillo Leonardi - Speculum Lapidum cited entries - Latin.md", {
+    reason: "The selected extracts do not cover the current cited-entry scope.",
+    legacyFiles: [],
+  }],
+  ["Thomas Cantimpre - Liber de natura rerum - Latin.md", {
+    reason: "The Book XIV OCR core remains uncollated.",
+    legacyFiles: ["Thomas Cantimpre - Liber de natura rerum.html"],
+  }],
+]);
 
 function escapeHtml(value) {
   return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
@@ -251,6 +272,27 @@ function updateLocaleMap(routes) {
   return source.slice(0, objectStart) + JSON.stringify(locales) + source.slice(objectEnd);
 }
 
+function outputFileFor(inputFile) {
+  return localePages[inputFile]?.file || inputFile.replace(/\.md$/i, ".html");
+}
+
+function removeStaleExcludedPages() {
+  const resolvedOutputDir = path.resolve(outputDir);
+  for (const [inputFile, exclusion] of excludedLatinSources) {
+    const outputFiles = new Set([outputFileFor(inputFile), ...exclusion.legacyFiles]);
+    for (const file of outputFiles) {
+      if (path.basename(file) !== file || !/\.html$/i.test(file)) {
+        throw new Error(`Unsafe stale Latin output path for ${inputFile}: ${file}`);
+      }
+      const outputPath = path.resolve(resolvedOutputDir, file);
+      if (path.dirname(outputPath) !== resolvedOutputDir) {
+        throw new Error(`Stale Latin output is outside la/Texts: ${file}`);
+      }
+      if (fs.existsSync(outputPath)) fs.unlinkSync(outputPath);
+    }
+  }
+}
+
 function bumpSourcePageContentIndex() {
   for (const relativeDir of ["Texts", path.join("pl", "Texts"), path.join("la", "Texts")]) {
     const directory = path.join(siteRoot, relativeDir);
@@ -286,7 +328,7 @@ const latinDisplayTitles = {
   "Pliny - Naturalis Historia IX.35 Pearls - Latin.md": "C. Plinius Secundus — Naturalis historia IX.35.105–124",
   "Pliny - Naturalis Historia VIII.57 Lynx-stone - Latin.md": "C. Plinius Secundus — Naturalis historia VIII.57: De lyncurio",
   "Solinus - Collectanea rerum memorabilium - Latin.md": "C. Iulius Solinus — Collectanea rerum memorabilium",
-  "Thomas Aquinas - De operationibus occultis naturae - Latin.md": "Thomas Aquinas — De occultis operibus naturae ad quemdam militem (seu De impressione corporum coelestium)",
+  "Thomas Aquinas - De operationibus occultis naturae - Latin.md": "Thomas Aquinas — De occultis operibus naturae ad quendam militem ultramontanum",
   "Thomas Cantimpre - Liber de natura rerum - Latin.md": "Thomas Cantimpratensis — Liber de natura rerum, liber XIV",
   "Thomas Cantimpre - Liber de natura rerum IV.15, IV.58, IV.61 - Latin.md": "Thomas Cantimpratensis — Liber de natura rerum, capita IV.15, IV.58 et IV.61",
 };
@@ -319,6 +361,7 @@ const latinSourceStarts = {
 
 const editorialBlock = /^(?:>\s*)?\*\*(?:Witness|Text note|Textual scope|Edition|Language|Extent|Coverage|Transcription|Digital witness|Digital sources|Online text|Reference|OCR note|Reading note|Name distinction|Boundary note|Scope|License|Source edition|Source status|Printed source|Parallel text|Citation note|Text source|Editorial note|Complete cited passage|Digital text|Witness and|Witness distinction|Chapter-number crosswalk|Independent witness|Complete extent|Contents from the edition|Edition limitation|Text and provenance|Transcription and limits|Frontmatter|Attribution)/i;
 const stopHeading = /^(?:Edition(?: and|\b)|Text and edition|Attribution|Transcription limits|Source status|Book IV citations not yet transcribed|Witness, scope|Witness and edition links|Digital witness and scan links|Frontmatter)\b/i;
+const cantimpreEditorialParagraph = /^(?:This complete chapter\b|The English and Polish source pages cite\b|The wording of Thomas's complete\b|The quoted parallel is independently inspectable\b)/i;
 
 function extractExternalLinks(markdown, raw) {
   const found = [];
@@ -365,7 +408,7 @@ function collectionMarkdown(body) {
   for (const match of body.matchAll(/^\s*-\s*\[([^\]]+)\]\(([^)]+)\)/gm)) {
     const target = decodeURIComponent(match[2].replace(/%20/g, " "));
     const inputName = Object.keys(latinDisplayTitles).find((name) => name.replace(/\.md$/i, ".html") === target);
-    if (inputName) entries.push({ href: match[2], title: latinDisplayTitles[inputName] });
+    if (inputName && !excludedLatinSources.has(inputName)) entries.push({ href: match[2], title: latinDisplayTitles[inputName] });
   }
   const first = entries.slice(0, 15), second = entries.slice(15);
   return "# Fontes ceteri — loci Latini\n\n## De lapidibus et animalibus\n\n" +
@@ -395,7 +438,7 @@ function prepareLatinSource(inputFile, body, raw) {
       if (/^(?:Textus Latinus|Latin|Text|Edition and digital sources?)$/i.test(title)) continue;
       if (/^Frontmatter$/i.test(title)) break;
     }
-    if (editorialBlock.test(block) || /^This transcription follows\b/i.test(block) || /^Two readings\b/i.test(block) || /^The original 1597 print\b/i.test(block)) continue;
+    if (editorialBlock.test(block) || cantimpreEditorialParagraph.test(block) || /^This transcription follows\b/i.test(block) || /^Two readings\b/i.test(block) || /^The original 1597 print\b/i.test(block)) continue;
     if (/^\s*[-*]\s*\[[^\]]+\]\(https?:\/\//i.test(block) || /\]\(https?:\/\//i.test(block)) continue;
     if (/^\s*---+\s*$/.test(block)) continue;
     if (/^\s*#\s/.test(block)) continue;
@@ -438,16 +481,22 @@ function buildIndex(pages) {
 function main() {
   if (!fs.existsSync(vaultTexts)) throw new Error(`Vault text directory not found: ${vaultTexts}`);
   fs.mkdirSync(outputDir, { recursive: true });
+  removeStaleExcludedPages();
   const inputFiles = fs.readdirSync(vaultTexts)
     .filter((file) => file.toLowerCase().endsWith("- latin.md"))
     .sort((a, b) => a.localeCompare(b, "en"));
   const pages = [];
   const routeMap = {};
   for (const inputFile of inputFiles) {
+    const exclusion = excludedLatinSources.get(inputFile);
+    if (exclusion) {
+      process.stdout.write(`Skipped excluded Latin source: ${inputFile} (${exclusion.reason})\n`);
+      continue;
+    }
     const raw = fs.readFileSync(path.join(vaultTexts, inputFile), "utf8");
     const { frontMatter, body } = extractMarkdown(raw);
     const mapping = localePages[inputFile];
-    const outputFile = mapping?.file || inputFile.replace(/\.md$/i, ".html");
+    const outputFile = outputFileFor(inputFile);
     const id = mapping?.id || `Texts/Latin/${slug(firstHeading(body, frontMatter.title || inputFile))}`;
     const title = latinDisplayTitles[inputFile] || firstHeading(body, frontMatter.title || inputFile.replace(/\.md$/i, ""));
     const prepared = prepareLatinSource(inputFile, body, raw);
