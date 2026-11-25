@@ -328,7 +328,7 @@ const latinDisplayTitles = {
   "Pliny - Naturalis Historia IX.35 Pearls - Latin.md": "C. Plinius Secundus — Naturalis historia IX.35.105–124",
   "Pliny - Naturalis Historia VIII.57 Lynx-stone - Latin.md": "C. Plinius Secundus — Naturalis historia VIII.57: De lyncurio",
   "Solinus - Collectanea rerum memorabilium - Latin.md": "C. Iulius Solinus — Collectanea rerum memorabilium",
-  "Thomas Aquinas - De operationibus occultis naturae - Latin.md": "Thomas Aquinas — De occultis operibus naturae ad quendam militem ultramontanum",
+  "Thomas Aquinas - De operationibus occultis naturae - Latin.md": "Thomas Aquinas — Ad quendam militem ultramontanum",
   "Thomas Cantimpre - Liber de natura rerum - Latin.md": "Thomas Cantimpratensis — Liber de natura rerum, liber XIV",
   "Thomas Cantimpre - Liber de natura rerum IV.15, IV.58, IV.61 - Latin.md": "Thomas Cantimpratensis — Liber de natura rerum, capita IV.15, IV.58 et IV.61",
 };
@@ -339,7 +339,7 @@ const latinSourceStarts = {
   "Albertus - Book of Minerals - Latin.md": "TRACTATUS II",
   "Ambrose - Hexaemeron V.33 - Latin.md": "## V.33",
   "Augustine - City of God XXI.4 - Latin.md": "### 4.1",
-  "Bartholomaeus - De proprietatibus rerum Book XVI - Latin.md": "De lapidibus terre",
+  "Bartholomaeus - De proprietatibus rerum Book XVI - Latin.md": "De lapidibus terrae",
   "Bartholomaeus - De proprietatibus rerum XIII.26 and XVIII.68 - Latin.md": "## Liber XIII, capitulum XXVI",
   "Camillo Leonardi - Speculum Lapidum - Latin.md": "Quicquid in humanos gemmarum parturit usus",
   "Camillo Leonardi - Speculum Lapidum cited entries - Latin.md": "## Egyptilla",
