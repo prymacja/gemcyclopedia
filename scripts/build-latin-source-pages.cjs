@@ -7,7 +7,7 @@ const path = require("node:path");
 const siteRoot = path.resolve(__dirname, "..");
 const vaultTexts = process.env.GEMCYCLOPEDIA_VAULT_TEXTS || "D:/Obsidian/Gemcyclopedia/Texts";
 const outputDir = path.join(siteRoot, "la", "Texts");
-const contentIndexVersion = 4;
+const contentIndexVersion = 6;
 // Only map pages whose complete standalone text or complete cited passages are present.
 const localePages = {
   "Albertus - Book of Minerals - Latin.md": {
@@ -300,23 +300,23 @@ function shell({ title, description, pageId, content, hasLocaleMap }) {
 <link href="../../assets/gem-mark.svg" rel="icon" type="image/svg+xml"/>
 <link href="../../assets/site.css?v=3" rel="stylesheet"/>
 <script defer="" src="../../assets/content-index.js?v=${contentIndexVersion}"></script>
-<script defer="" src="../../assets/site.js?v=4"></script>
+<script defer="" src="../../assets/site.js?v=6"></script>
 <style>.article-text{line-height:1.75}.article-text pre{white-space:pre-wrap;overflow-wrap:anywhere;font-family:Georgia,serif}.latin-verse-line{display:grid;grid-template-columns:2.8em minmax(0,1fr);font-family:Georgia,serif;line-height:1.55}.latin-line-number{color:var(--muted,#777);font-size:.8em;text-align:right;padding-right:.8em;user-select:none}</style>
 </head>
 <body class="content-page" data-current-page="${escapeHtml(pageId)}" data-site-base="../..">
 <header class="topbar">
 <button aria-expanded="false" aria-label="Open navigation" class="mobile-nav-toggle" id="mobile-nav-toggle">☰</button>
 <a class="brand" href="../../en/index.html"><strong data-i18n="brand">Gemcyclopedia</strong></a>
-<div class="search-wrap"><label class="sr-only" data-i18n="searchLabel" for="site-search">Search the encyclopedia</label><input autocomplete="off" id="site-search" placeholder="Search gems, powers, places, and sources…" type="search"/><kbd>⌘ K</kbd><div class="search-results" id="search-results" role="listbox"></div></div>
+<div class="search-wrap"><label class="sr-only" data-i18n="searchLabel" for="site-search">Quaere in encyclopaedia</label><input autocomplete="off" id="site-search" placeholder="Quaere gemmas, vires, loca et fontes…" type="search"/><kbd>⌘ K</kbd><div class="search-results" id="search-results" role="listbox"></div></div>
 <div class="top-actions"><button aria-label="Switch light and dark appearance" class="theme-toggle" id="theme-toggle" title="Switch light and dark appearance" type="button">◐</button>${languageControl}</div>
 </header>
 <div class="page-shell with-toc">
-<aside class="left-rail" id="left-rail"><div class="rail-label">DISCOVER</div><nav class="primary-nav"><a class="home-link" data-i18n="home" href="../../en/index.html">Home</a><a data-i18n="gems" href="../../Gems/index.html">Gems</a><a data-i18n="powers" href="../../Powers/Browse.html">Powers</a><a data-i18n="locations" href="../../Locations/Browse.html">Locations</a><a data-i18n="sources" href="index.html">Sources</a></nav><div class="rail-divider"></div><button class="rail-action" data-i18n="randomArticle" id="random-article">Open random article</button><button class="rail-action" data-i18n="randomGem" id="random-gem">Open random gem</button></aside>
+<aside class="left-rail" id="left-rail"><div class="rail-label" data-i18n="discover">INVESTIGA</div><nav class="primary-nav"><a class="home-link" data-i18n="home" href="../../en/index.html">Domus</a><a data-i18n="gems" href="../../Gems/index.html">Gemmae</a><a data-i18n="powers" href="../../Powers/Browse.html">Vires</a><a data-i18n="locations" href="../../Locations/Browse.html">Loca</a><a data-i18n="sources" href="index.html">Fontes</a></nav><div class="rail-divider"></div><button class="rail-action" data-i18n="randomArticle" id="random-article">Open random article</button><button class="rail-action" data-i18n="randomGem" id="random-gem">Open random gem</button></aside>
 <main class="main-column" id="main-content">
 <div class="breadcrumbs"><a data-i18n="home" href="../../en/index.html">Home</a><span>/</span><a href="index.html">Source library · Latin</a><span>/</span><span>Source text</span></div>
 <div class="article-toolbar"><span class="page-type">Source text · Latin</span></div>
 <article class="article-content" data-page-title="${escapeHtml(title)}"><div class="article-text">${content}</div></article>
-<footer class="site-footer"><span>Created by Adrian Skoczkowski 2026, Contact at: <a href="mailto:pajakiyt@gmail.com">pajakiyt@gmail.com</a></span><a href="../../en/index.html">Gemcyclopedia</a></footer>
+<footer class="site-footer"><span>Gemcyclopedia · 2026</span><a href="../../en/index.html">Gemcyclopedia</a></footer>
 </main><aside class="right-rail"><div class="rail-card"><h2 data-i18n="contents">On this page</h2><nav class="toc"></nav></div></aside>
 </div></body></html>
 `;
@@ -357,6 +357,10 @@ function updateLocaleMap(routes) {
     pl: "pl/Texts/index.html",
     la: "la/Texts/index.html",
   };
+  locales.home = { ...(locales.home || {}), en: "en/index.html", pl: "pl/index.html", la: "la/index.html" };
+  locales.__gems_browse__ = { ...(locales.__gems_browse__ || {}), en: "Gems/index.html", pl: "pl/Gems/index.html", la: "la/Gems/index.html" };
+  locales.__powers_browse__ = { ...(locales.__powers_browse__ || {}), en: "Powers/Browse.html", pl: "pl/Powers/Browse.html", la: "la/Powers/Browse.html" };
+  locales.__locations_browse__ = { ...(locales.__locations_browse__ || {}), en: "Locations/Browse.html", pl: "pl/Locations/Browse.html", la: "la/Locations/Browse.html" };
   return source.slice(0, objectStart) + JSON.stringify(locales) + source.slice(objectEnd);
 }
 
@@ -646,7 +650,20 @@ function buildIndex(pages) {
       .map((page) => "<a class=\"index-card\" href=\"" + escapeHtml(encodeURI(page.file)) + "\"><span class=\"index-card-title\">" + escapeHtml(page.title) + "</span><span class=\"index-card-summary\">" + escapeHtml(page.summary || "") + "</span></a>").join("");
     return "<section class=\"alpha-group\" id=\"letter-" + letter.toLowerCase() + "\"><h2>" + letter + "</h2><div class=\"index-grid\">" + cards + "</div></section>";
   }).join("");
-  return "<!DOCTYPE html>\n<html data-locale=\"la\" data-theme=\"dark\" lang=\"la\"><head>\n<meta charset=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=\"viewport\"/><meta content=\"dark light\" name=\"color-scheme\"/>\n<meta content=\"Fontes Latini Gemcyclopediae.\" name=\"description\"/><title>Fontes Latini · Gemcyclopedia</title>\n<link href=\"../../assets/gem-mark.svg\" rel=\"icon\" type=\"image/svg+xml\"/><link href=\"../../assets/site.css?v=3\" rel=\"stylesheet\"/>\n<script defer=\"\" src=\"../../assets/content-index.js?v=" + contentIndexVersion + "\"></script><script defer=\"\" src=\"../../assets/site.js?v=4\"></script></head>\n<body class=\"content-page\" data-current-page=\"__texts_browse__\" data-site-base=\"../..\"><header class=\"topbar\">\n<button aria-expanded=\"false\" aria-label=\"Open navigation\" class=\"mobile-nav-toggle\" id=\"mobile-nav-toggle\">☰</button><a class=\"brand\" href=\"../../en/index.html\"><strong data-i18n=\"brand\">Gemcyclopedia</strong></a>\n<div class=\"search-wrap\"><label class=\"sr-only\" data-i18n=\"searchLabel\" for=\"site-search\">Search the encyclopedia</label><input autocomplete=\"off\" id=\"site-search\" placeholder=\"Search gems, powers, places, and sources…\" type=\"search\"/><kbd>⌘ K</kbd><div class=\"search-results\" id=\"search-results\" role=\"listbox\"></div></div>\n<div class=\"top-actions\"><button aria-label=\"Switch light and dark appearance\" class=\"theme-toggle\" id=\"theme-toggle\" title=\"Switch light and dark appearance\" type=\"button\">◐</button><label class=\"language-select\"><span data-i18n=\"language\">Language</span><select aria-label=\"Language\" id=\"language-select\"><option value=\"en\">English · EN</option><option value=\"pl\">Polski · PL</option></select></label></div></header>\n<div class=\"page-shell\"><aside class=\"left-rail\" id=\"left-rail\"><div class=\"rail-label\">DISCOVER</div><nav class=\"primary-nav\"><a class=\"home-link\" data-i18n=\"home\" href=\"../../en/index.html\">Home</a><a data-i18n=\"gems\" href=\"../../Gems/index.html\">Gems</a><a data-i18n=\"powers\" href=\"../../Powers/Browse.html\">Powers</a><a data-i18n=\"locations\" href=\"../../Locations/Browse.html\">Locations</a><a data-i18n=\"sources\" href=\"index.html\">Sources</a></nav></aside><main class=\"main-column\" id=\"main-content\">\n<div class=\"breadcrumbs\"><a data-i18n=\"home\" href=\"../../en/index.html\">Home</a><span>/</span><span>Fontes Latini</span></div><div class=\"article-toolbar\"><span class=\"page-type\">Bibliotheca fontium</span></div>\n<section class=\"index-intro\"><p class=\"eyebrow\">" + pages.length + " textus Latini</p><h1>Fontes Latini</h1><div class=\"letter-nav\">" + nav + "</div></section>" + groups + "\n<footer class=\"site-footer\"><span>Created by Adrian Skoczkowski 2026, Contact at: <a href=\"mailto:pajakiyt@gmail.com\">pajakiyt@gmail.com</a></span><a href=\"../../en/index.html\">Gemcyclopedia</a></footer></main></div></body></html>";
+  return `<!DOCTYPE html>
+<html data-locale="la" data-theme="dark" lang="la"><head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="dark light" name="color-scheme"/>
+<meta content="Index fontium Gemcyclopediae." name="description"/><title>Index fontium · Gemcyclopedia</title>
+<link href="../../assets/gem-mark.svg" rel="icon" type="image/svg+xml"/><link href="../../assets/site.css?v=3" rel="stylesheet"/>
+<script defer="" src="../../assets/content-index.js?v=${contentIndexVersion}"></script><script defer="" src="../../assets/site.js?v=6"></script></head>
+<body class="content-page" data-current-page="__texts_browse__" data-site-base="../.."><header class="topbar">
+<button aria-expanded="false" aria-label="Aperi navigationem" class="mobile-nav-toggle" id="mobile-nav-toggle">☰</button><a class="brand" href="../../en/index.html"><strong data-i18n="brand">Gemcyclopedia</strong></a>
+<div class="search-wrap"><label class="sr-only" data-i18n="searchLabel" for="site-search">Quaere in encyclopaedia</label><input autocomplete="off" id="site-search" placeholder="Quaere gemmas, vires, loca et fontes…" type="search"/><kbd>⌘ K</kbd><div class="search-results" id="search-results" role="listbox"></div></div>
+<div class="top-actions"><button aria-label="Modum clarum elige" class="theme-toggle" id="theme-toggle" title="Modum clarum elige" type="button">◐</button><label class="language-select"><span data-i18n="language">Lingua</span><select aria-label="Lingua" id="language-select"><option value="en">English · EN</option><option value="pl">Polski · PL</option></select></label></div></header>
+<div class="page-shell"><aside class="left-rail" id="left-rail"><div class="rail-label" data-i18n="discover">INVESTIGA</div><nav class="primary-nav"><a class="home-link" data-i18n="home" href="../../en/index.html">Domus</a><a data-i18n="gems" href="../../Gems/index.html">Gemmae</a><a data-i18n="powers" href="../../Powers/Browse.html">Vires</a><a data-i18n="locations" href="../../Locations/Browse.html">Loca</a><a data-i18n="sources" href="index.html">Fontes</a></nav></aside><main class="main-column" id="main-content">
+<div class="breadcrumbs"><a data-i18n="home" href="../../en/index.html">Domus</a><span>/</span><span>Index fontium</span></div><div class="article-toolbar"><span class="page-type">Bibliotheca fontium</span></div>
+<section class="index-intro"><p class="eyebrow">${pages.length} textus Latini</p><h1>Index fontium</h1><div class="letter-nav">${nav}</div></section>${groups}
+<footer class="site-footer"><span>Gemcyclopedia · 2026</span><a href="../../en/index.html">Gemcyclopedia</a></footer></main></div></body></html>`;
 }
 
 function main() {

@@ -3,7 +3,7 @@
   const currentPage = document.body.dataset.currentPage || "home";
   const data = window.GEMCYCLOPEDIA_DATA || { pages: [], links: {}, ui: {} };
   const locale = document.documentElement.dataset.locale || data.locale || "en";
-  const words = data.ui?.[locale] || data.ui?.en || {};
+  const words = { ...(data.ui?.en || {}), ...(data.ui?.[locale] || {}) };
   const sourceEntries = data.pages || [];
   const entries = sourceEntries.map((page) => locale === "pl" ? ({
     ...page,
@@ -19,10 +19,14 @@
   const sourcePageById = new Map(sourceEntries.map((page) => [page.id, page]));
   const pageById = new Map(entries.map((page) => [page.id, page]));
   const siteBase = root.replace(/\/$/, "");
+  const pageIdByHref = new Map(sourceEntries.map((page) => [page.href, page.id]));
   const pageUrl = (href, targetLocale = locale) => {
     let route = String(href || "");
-    if (targetLocale === "pl" && !route.startsWith("pl/")) route = "pl/" + route;
-    if (targetLocale !== "pl" && route.startsWith("pl/")) route = route.slice(3);
+    const pageId = pageIdByHref.get(route);
+    const localizedRoute = pageId && data.pageLocales?.[pageId]?.[targetLocale];
+    if (localizedRoute) route = localizedRoute;
+    else if (targetLocale === "pl" && !route.startsWith("pl/")) route = "pl/" + route;
+    else if (targetLocale !== "pl" && route.startsWith("pl/")) route = route.slice(3);
     const encoded = route.split("/").map((part) => encodeURIComponent(part)).join("/");
     return (siteBase + "/" + encoded).replace(/^\.\//, siteBase === "." ? "./" : "../");
   };
@@ -133,7 +137,7 @@
   const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
   })[char]);
-  const categoryName = (category) => (locale === "pl" ? ({ gem: "Klejnot", power: "Moc", location: "Miejsce", source: "Tekst źródłowy" }) : ({ gem: "Gem", power: "Power", location: "Location", source: "Source text" }))[category] || (locale === "pl" ? "Artykuł" : "Article");
+  const categoryName = (category) => (locale === "pl" ? ({ gem: "Klejnot", power: "Moc", location: "Miejsce", source: "Tekst źródłowy" }) : locale === "la" ? ({ gem: "Gemma", power: "Vis", location: "Locus", source: "Textus fontis" }) : ({ gem: "Gem", power: "Power", location: "Location", source: "Source text" }))[category] || (locale === "pl" ? "Artykuł" : locale === "la" ? "Articulus" : "Article");
 
   if (search) {
     search.addEventListener("input", () => runSearch(search.value));
@@ -254,6 +258,20 @@
     try { localStorage.setItem("gemcyclopedia-theme", next); } catch (_) { /* optional persistence */ }
   });
 
+  const siteRouteUrl = (route) => {
+    const encodedRoute = route.split("/").map((part) => encodeURIComponent(part)).join("/");
+    const rootPath = root ? `${root.replace(/\/+$/, "")}/` : "./";
+    const siteRoot = new URL(rootPath, window.location.href);
+    return new URL(encodedRoute, siteRoot).href;
+  };
+  const navigationPages = { home: "home", gems: "__gems_browse__", powers: "__powers_browse__", locations: "__locations_browse__", sources: "__texts_browse__" };
+  document.querySelectorAll(".primary-nav [data-i18n], .breadcrumbs [data-i18n='home'], .brand, .site-footer > a").forEach((node) => {
+    const key = node.dataset.i18n || (node.matches(".brand, .site-footer > a") ? "home" : "");
+    const pageKey = navigationPages[key];
+    const route = pageKey && data.pageLocales?.[pageKey]?.[locale];
+    if (route) node.href = siteRouteUrl(route);
+  });
+
   const langSelect = document.getElementById("language-select");
   const localeMap = data.pageLocales?.[currentPage] || {};
   if (langSelect && localeMap.la) {
@@ -277,11 +295,7 @@
     // the page shell and all localized article content together.
     if (next === "pl" && !target.startsWith("pl/")) target = `pl/${target}`;
     if (next !== "pl" && target.startsWith("pl/")) target = target.slice(3);
-    const encodedRoute = target.split("/").map((part) => encodeURIComponent(part)).join("/");
-    const rootPath = root ? `${root.replace(/\/+$/, "")}/` : "./";
-    const siteRoot = new URL(rootPath, window.location.href);
-    const destination = new URL(encodedRoute, siteRoot);
-    window.location.assign(destination.href);
+    window.location.assign(siteRouteUrl(target));
   });
 
   const articlePage = pageById.get(currentPage);
