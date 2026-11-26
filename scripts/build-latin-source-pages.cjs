@@ -22,6 +22,10 @@ const localePages = {
     id: "Texts/Bartholomaeus Anglicanus - De proprietatibus rerum",
     file: "Bartholomaeus - De proprietatibus rerum Book XVI - Latin.html",
   },
+  "Camillo Leonardi - Speculum Lapidum cited entries - Latin.md": {
+    id: "Texts/Camillo Leonardi - Speculum Lapidum",
+    file: "Camillo Leonardi - Speculum Lapidum cited entries - Latin.html",
+  },
   "Epiphanius - On the Twelve Gemstones - Latin.md": {
     id: "Texts/Epiphanius - On the Twelve Gemstones",
     file: "Epiphanius - On the Twelve Gemstones - Latin.html",
@@ -50,6 +54,10 @@ const localePages = {
     id: "Texts/Thomas Aquinas - De operationibus occultis naturae (excerpt)",
     file: "Thomas Aquinas - De operationibus occultis naturae - Latin.html",
   },
+  "Thomas Cantimpre - Liber de natura rerum - Latin.md": {
+    id: "Texts/Thomas Cantimpre - Liber de natura rerum",
+    file: "Thomas Cantimpre - Liber de natura rerum - Latin.html",
+  },
 };
 
 // Keep these unreviewed working copies out of generated Latin pages. Remove an entry
@@ -57,10 +65,6 @@ const localePages = {
 const excludedLatinSources = new Map([
   ["Camillo Leonardi - Speculum Lapidum - Latin.md", {
     reason: "Full OCR working copy is not scan-collated.",
-    legacyFiles: [],
-  }],
-  ["Camillo Leonardi - Speculum Lapidum cited entries - Latin.md", {
-    reason: "The selected extracts do not cover the current cited-entry scope.",
     legacyFiles: [],
   }],
   ["Camillo Leonardi - Speculum Lapidum cited entries A-B batch - Latin.md", {
@@ -86,10 +90,6 @@ const excludedLatinSources = new Map([
   ["Camillo Leonardi - Speculum Lapidum cited entries S-Z batch - Latin.md", {
     reason: "Separate scan-collated batch; it is not yet consolidated with the full cited-entry scope.",
     legacyFiles: [],
-  }],
-  ["Thomas Cantimpre - Liber de natura rerum - Latin.md", {
-    reason: "The Book XIV OCR core remains uncollated.",
-    legacyFiles: ["Thomas Cantimpre - Liber de natura rerum.html"],
   }],
   ["Isidore - Etymologies Book XVI - Latin.md", {
     reason: "Consolidated into the combined Etymologiae source page.",
@@ -451,16 +451,47 @@ const latinSourceStarts = {
   "Thomas Cantimpre - Liber de natura rerum IV.15, IV.58, IV.61 - Latin.md": "## IV.15",
 };
 
-const editorialBlock = /^(?:>\s*)?\*\*(?:Witness|Text note|Textual scope|Edition|Language|Extent|Coverage|Transcription|Digital witness|Digital sources|Online text|Reference|OCR note|Reading note|Name distinction|Boundary note|Scope|License|Source edition|Source status|Printed source|Parallel text|Citation note|Text source|Editorial note|Complete cited passage|Digital text|Witness and|Witness distinction|Chapter-number crosswalk|Independent witness|Complete extent|Contents from the edition|Edition limitation|Text and provenance|Transcription and limits|Frontmatter|Attribution)/i;
-const stopHeading = /^(?:Edition(?: and|\b)|Text and edition|Attribution|Transcription limits|Source status|Book IV citations not yet transcribed|Witness, scope|Witness and edition links|Digital witness and scan links|Frontmatter)\b/i;
-const cantimpreEditorialParagraph = /^(?:This complete chapter\b|The English and Polish source pages cite\b|The wording of Thomas's complete\b|The quoted parallel is independently inspectable\b)/i;
+const editorialBlock = /^(?:>\s*)?\*\*(?:Witness|Text note|Textual scope|Edition|Language|Extent|Coverage|Transcription|Digital witness|Digital sources|Online text|Reference|OCR note|Reading note|Name distinction|Boundary note|Scope|License|Source edition|Source status|Printed source|Parallel text|Citation note|Text source|Editorial note|Complete cited passage|Digital text|Witness and|Witness distinction|Chapter-number crosswalk|Independent witness|Complete extent|Contents from the edition|Edition limitation|Text and provenance|Transcription and limits|Frontmatter|Attribution|Locus|Collation checkpoint|Crosswalk note|Anchor crosswalks)/i;
+const stopHeading = /^(?:Edition(?: and|\b)|Text and edition|Attribution|Transcription limits|Source status|Book IV citations not yet transcribed|Witness, scope|Witness and edition links|Digital witness and scan links|Frontmatter|Anchor crosswalks and unresolved coverage)\b/i;
+const cantimpreEditorialParagraph = /^(?:\*\*)?(?:This complete chapter\b|The English and Polish source pages cite\b|The wording of Thomas's complete\b|The quoted parallel is independently inspectable\b|Chapter alignment\b|The\b|This\b|These\b|Both\b|Neither\b|A related\b|A source\b|A separate\b|Brackets\b|Square brackets\b|Punctuation\b|Word division\b|Spelling\b|Attribution\b|MS 0320\b|Valenciennes\b|Wrocław\b|UPenn\b|In the\b|Freshly checked\b|No distinct\b|Do not\b|Keep\b|Compare\b|See\b)/i;
+
+function stripCantimpreEditorialBrackets(block) {
+  return block
+    .replace(/\[\*?Prooemium[^\]]*\]/gi, "")
+    .replace(/\[(?:f{1,2}\.?\s*\d+[rv]?|MS\s*0320|The eye passage|reading uncertain|words uncertain)[^\]]*\]/gi, " […] ")
+    .replace(/\[([^\]]*);[^\]]*\b(?:description|uncertain|unclear|illegible|reading|rubric|red extension|passage|text|body|chapter|word|page|scan|source)\b[^\]]*\]/gi, (_, before) => {
+      const possibleReading = before.trim();
+      return possibleReading && !/^(?:f{1,2}\.?\s*\d|MS\b|The\b)/i.test(possibleReading) ? `[${possibleReading}]` : " […] ";
+    })
+    .replace(/\s+R\s+174,\s*p\.\s*\d+,\s+has\b.*$/i, "");
+}
+
+function stripEditorialBracketAnnotations(block) {
+  return block.replace(/\[([^\]]+)\]/g, (full, contents) => {
+    if (!/\b(?:the|this|first|second|sentence|continues|headword|partly|obscured|decorated|initial|folio|page|scan|image|witness|reading|uncertain|unclear|illegible|unreadable|chapter|passage|manuscript|rubric|supplied|OCR|text|source|corresponding|description|words?)\b/i.test(contents)) return full;
+    const candidate = contents.split(/[;:—]/, 1)[0].trim();
+    if (candidate && /^[\p{L}\s/?'-]+\??$/u.test(candidate) && !/\b(?:the|this|first|second|headword|folio|page|scan|image|reading|uncertain|unclear|illegible|unreadable|description|words?|continues|sentence|decorated|initial|obscured|partly|incerta)\b/i.test(candidate)) return `[${candidate}]`;
+    return " ";
+  });
+}
 
 function extractExternalLinks(markdown, raw) {
   const found = [];
   const add = (label, url) => {
     const cleanUrl = String(url || "").trim().replace(/[)>.,;]+$/, "");
     if (!/^https?:\/\//i.test(cleanUrl) || found.some((entry) => entry.url === cleanUrl)) return;
-    const cleanLabel = String(label || "").replace(/[*_`]/g, "").trim();
+    // Passage-level scan locators stay in the working transcription; the page
+    // footer lists each digital witness once so it remains a short source list.
+    if (/\/page\/[^/?#]+(?:\/mode\/1up)?(?:[?#]|$)/i.test(cleanUrl)) return;
+    const rawLabel = String(label || "").replace(/[*_`]/g, "").trim();
+    const genericLabels = {
+      "scan url": "digital scan",
+      "ocr url": "digital OCR",
+      "source url": "digital source",
+      "source urls": "digital sources",
+      "page range": "digital facsimile",
+    };
+    const cleanLabel = genericLabels[rawLabel.toLowerCase()] || rawLabel;
     found.push({ label: cleanLabel, url: cleanUrl });
   };
   for (const match of markdown.matchAll(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g)) add(match[1], match[2]);
@@ -482,8 +513,8 @@ function extractExternalLinks(markdown, raw) {
   return found;
 }
 
-function latinizedHeading(block) {
-  return block.replace(/^(#{2,6}\s+)Chapter\s+(\d+)\s+—\s*/i, (_, hashes, number) => {
+function latinizedHeading(block, inputFile) {
+  let result = block.replace(/^(#{2,6}\s+)Chapter\s+(\d+)\s+—\s*/i, (_, hashes, number) => {
     const values = [[1000,"M"],[900,"CM"],[500,"D"],[400,"CD"],[100,"C"],[90,"XC"],[50,"L"],[40,"XL"],[10,"X"],[9,"IX"],[5,"V"],[4,"IV"],[1,"I"]];
     let n = Number(number), roman = "";
     for (const [value, symbol] of values) while (n >= value) { roman += symbol; n -= value; }
@@ -493,6 +524,37 @@ function latinizedHeading(block) {
     .replace(/^(#{2,6}\s+)Liber XV,\s*§8\s+—.*$/i, "$1Liber XV, caput VIII")
     .replace(/^(#{2,6}\s+)Chapter LXXXVIII\s+—\s*\*?De feris\*?:.*$/i, "$1Caput LXXXVIII — De feris")
     .replace(/^(#{2,6}\s+)Chapter XC\s+—\s*\*?De avibus quibusdam et piscibus raris\*?:.*$/i, "$1Caput XC — De avibus quibusdam et piscibus raris");
+  if (inputFile === "Jacques de Vitry - Historia orientalis, cited passages 88 and 90 - Latin.md") {
+    result = result
+      .replace(/^(#{2,6}\s+)Caput LXXXVIII\s+—.*$/i, "$1Caput LXXXVIII — De feris")
+      .replace(/^(#{2,6}\s+)Caput XC\s+—.*$/i, "$1Caput XC — De avibus quibusdam et piscibus raris");
+  }
+  if (inputFile === "Aberdeen Bestiary - Fire Stones and Magnes - Latin.md") {
+    result = result.replace(/^(#{2,6}\s+)(De lapidibus igniferis|De magnete)\s+—\s+fol\.\s*\d+[rv]$/i, "$1$2");
+  }
+  if (inputFile === "Thomas Cantimpre - Liber de natura rerum IV.15, IV.58, IV.61 - Latin.md") {
+    result = result.replace(/\s+\((?:confirmed in MS 320|unrubricated in this witness)\)/gi, "");
+  }
+  if (inputFile === "Camillo Leonardi - Speculum Lapidum cited entries - Latin.md") {
+    result = result
+      .replace(/^(#{2,6}\s+)Book\s+([IVXLCDM]+),\s*chapter\s+([IVXLCDM]+)\s+—\s+introduction\b.*$/i, "$1Liber $2, caput $3 — Prooemium")
+      .replace(/^(#{2,6}\s+)Book\s+([IVXLCDM]+),\s*chapter\s+([IVXLCDM]+)\b/i, "$1Liber $2, caput $3")
+      .replace(/\s+—\s+(?:1502 index and later prose witnesses|1502 cross-references and later prose witnesses)\s*$/i, "")
+      .replace(/\s+\((?=[^)]*\b(?:cited for|English source heading|first chrysolite passage|second chrysolite passage|PDF|scan|witness|complete brief entry|printed p\.|UPenn|MS 0320|Valenciennes|Agate|Amethyst|Beryl|Amber|Emerald|Sapphire|Ruby|Diamond|Chalcedony)\b)[^)]*\)/gi, "");
+  }
+  if (inputFile === "Thomas Cantimpre - Liber de natura rerum - Latin.md") {
+    result = result
+      .replace(/^## Additional Book XIV readings from Valenciennes MS 0320$/i, "## Capitula XIV alia ex codice Valentiniano")
+      .replace(/^## Additional Book XIV witness readings$/i, "## Alia testimonia libri XIV")
+      .replace(/^## MS 0320 collation supplements for XIV\.1–15 and XIV\.31–45$/i, "## Testimonia codicis MS 0320")
+      .replace(/^(#{2,6}\s+)MS 0320 supplement\s+—\s+(XIV\.\d+),\s+\*?(.*?)(?:\s+\([^)]*\))?\*?$/i, "$1Testimonium MS 0320 — caput $2, $3")
+      .replace(/^(#{2,6}\s+)XIV\.7, XIV\.9, XIV\.11, and XIV\.15\s+—\s+selected readings$/i, "$1Capita XIV.7, XIV.9, XIV.11 et XIV.15 — lectiones")
+      .replace(/^(#{2,6}\s+)XIV\.31–45\s+—\s+manuscript readings and unresolved spans$/i, "$1Capita XIV.31–45")
+      .replace(/^(#{2,6}\s+)XIV\.69\s+—\s+Parallel witness: Wrocław R 174, printed pp\.\s*179–180$/i, "$1Caput XIV.69 — alterum testimonium (R 174)")
+      .replace(/^(#{2,6}\s+)XIV\.([0-9]+[–-][0-9]+)\s+—\s+Valenciennes MS 0320\b.*$/i, "$1Capita XIV.$2 — testimonium MS 0320")
+      .replace(/\s+\((?=[^)]*\b(?:first chrysolite passage|second chrysolite passage|MS 0320|UPenn|Wrocław|printed p\.|complete brief entry|scan-collated|ff?\.\s*\d)\b)[^)]*\)/gi, "");
+  }
+  return result;
 }
 
 function collectionMarkdown(body) {
@@ -521,20 +583,26 @@ function prepareLatinSource(inputFile, body, raw) {
   if (start < 0) throw new Error("Latin text start marker not found in " + inputFile + ": " + marker);
   const kept = [];
   for (const original of blocks.slice(start)) {
-    const block = original.trim();
+    const block = stripEditorialBracketAnnotations(
+      inputFile === "Thomas Cantimpre - Liber de natura rerum - Latin.md"
+        ? stripCantimpreEditorialBrackets(original.trim())
+        : original.trim(),
+    );
     const firstLine = block.split("\n", 1)[0].trim();
     const heading = firstLine.match(/^#{1,6}\s+(.+)$/);
     if (heading) {
       const title = heading[1].replace(/[*_`]/g, "").trim();
       if (stopHeading.test(title)) break;
+      if (inputFile === "Thomas Cantimpre - Liber de natura rerum - Latin.md" && /^(?:MS 0320 transcription|MS 0320 parallel|Review note|Witness and method|Prose witnesses)\b/i.test(title)) continue;
       if (/^(?:Textus Latinus|Latin|Text|Edition and digital sources?)$/i.test(title)) continue;
       if (/^Frontmatter$/i.test(title)) break;
     }
+    if (inputFile === "Thomas Cantimpre - Liber de natura rerum - Latin.md" && /^\s*[-*]\s+/.test(block)) continue;
     if (editorialBlock.test(block) || cantimpreEditorialParagraph.test(block) || /^This transcription follows\b/i.test(block) || /^Two readings\b/i.test(block) || /^The original 1597 print\b/i.test(block)) continue;
     if (/^\s*[-*]\s*\[[^\]]+\]\(https?:\/\//i.test(block) || /\]\(https?:\/\//i.test(block)) continue;
     if (/^\s*---+\s*$/.test(block)) continue;
     if (/^\s*#\s/.test(block)) continue;
-    kept.push(latinizedHeading(block));
+    kept.push(latinizedHeading(block, inputFile));
   }
   const markdown = kept.join("\n\n");
   const isPreviewText = (block) => {
@@ -546,7 +614,18 @@ function prepareLatinSource(inputFile, body, raw) {
   const previewBlock = previewCandidates.find((block) => block.replace(/\s+/g, " ").trim().length >= 75) || previewCandidates[0];
   const previewText = previewBlock ? previewBlock.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/[*_`>]/g, "").replace(/\s+/g, " ").trim() : "";
   const preview = previewText.length > 145 ? previewText.slice(0, 145).replace(/\s+\S*$/, "").replace(/[ ,;:]+$/, "") + "…" : previewText;
-  return { markdown, links, preview };
+  const pageLinks = inputFile === "Thomas Cantimpre - Liber de natura rerum - Latin.md"
+    ? [
+        { label: "MS 0320 — Bibliothèque municipale de Valenciennes", url: "https://patrimoine-numerique.ville-valenciennes.fr/ark:/29755/B_596066101_MS_0320/v0003" },
+        { label: "LJS 23 — XIV.39, De iudaico", url: "https://archive.org/details/ljs23" },
+        { label: "R 174 — XIV.65, XIV.67, XIV.69, XIV.71", url: "https://bibliotekacyfrowa.pl/dlibra/publication/35140/edition/38233/liber-de-natura-rerum-thomas-de-cantimpre-1201-1272-http-viaf-org-viaf-100174390" },
+        { label: "Bibliotheca Ichtya — VII.51, De margaritis", url: "https://ichtya.unicaen.fr/lab/bibliotheque/TC7_lat.xml/LAT.tc.7.51.html" },
+        { label: "Editio Boese 1973 — Liber de natura rerum", url: "https://books.google.com/books?id=dTwJAQAAMAAJ" },
+        { label: "Isidorus Hispalensis — Etymologiae XVI.4.12", url: "https://monumenta.ch/latein/text.php?domain=&hide_apparatus=&inframe=1&lang=0&level=4&links=&rumpfid=Isidorus%2C+Etymologiae%2C+Liber+16%2C+++4&tabelle=Isidorus&translation_links=" },
+        { label: "Historia orientalis, cap. XC — De ostreis (Bibliotheca Ichtya)", url: "https://ichtya.unicaen.fr/lab/bibliotheque/AM_lat.xml/LAT.am.24.html?focus=LAT.am.24.1.12" },
+      ]
+    : links;
+  return { markdown, links: pageLinks, preview };
 }
 
 function simpleSourceLinks(author, fallbackTitle, links) {
