@@ -1,0 +1,36 @@
+[
+  {
+    "id": "Gems/Reyben",
+    "title": "Ostem",
+    "summary": "Ostem, sive reibensum (lectio incerta), lapillus in capite cancri invenitur. Albus aut flavescens, mollis, rotundus et parum concavus est; frigidus et humidus dicitur, atque contra morsus, vulnera, scabiem lacrimasque valere.",
+    "overview": [
+      [
+        "Nomen",
+        "Ostem; reibensum? (lectio incerta)."
+      ],
+      [
+        "Species",
+        "Albus aut ad flaveum vergens; mollis, exterius rotundus et planus, interius parum concavus; paulo durior pupilla oculi piscis."
+      ],
+      [
+        "Origo",
+        "In capite cancri."
+      ],
+      [
+        "Qualitates",
+        "Frigidus et humidus."
+      ],
+      [
+        "Virtutes",
+        "Contra morsus scorpionum, mustelae et canis rabiosi; pulvis combustus dentes mundificat, vulnera desiccat, scabiem iuvat et lacrimas prohibet."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Bartholomaeus Anglicanus, De proprietatibus rerum, liber XVI, Ostem",
+        "href": "../Texts/Bartholomaeus%20-%20De%20proprietatibus%20rerum%20Book%20XVI%20-%20Latin.html#ostem",
+        "text": "[Ostem sive reibensum?] Avicennae est lapillus qui invenitur in capite cancri, et est aliquis albus, aliquis vergens in flaveum colorem. Est autem, quoad substantiam, mollis, parum durior quam pupilla oculi piscis; quoad formam vero est exterius rotundus et planus, interius parum concavus. Quoad virtutem autem naturaliter est frigidus et humidus, et valet contra morsus scorpionum et mustelae, si tritus more emplastri superponatur. Dicitur etiam quod valet contra morsus canis rabiosi, si pulvis eius in potu assumatur. Si comburatur, pulvis mundificat dentes et desiccat vulnera, et confert scabiei et prohibet lacrimas."
+      }
+    ]
+  }
+]

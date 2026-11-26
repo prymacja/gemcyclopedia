@@ -1,0 +1,28 @@
+[
+  {
+    "id": "Gems/Kacamon",
+    "title": "Kacamon (Kacaman)",
+    "summary": "Kacaman lapis frequenter albus, totus aut ex parte, vario colore est; saepissime onyxine immixtus invenitur. Virtus eius ex imaginibus, sculpturis atque sigillis in eo repertis esse fertur.",
+    "overview": [
+      [
+        "Nomen",
+        "Kacamon; in fonte Kacaman."
+      ],
+      [
+        "Species",
+        "Saepe albus, totus vel ex parte; varius colore; frequentissime onyxine immixtus."
+      ],
+      [
+        "Virtus",
+        "Ex imaginibus, sculpturis et sigillis in lapide repertis esse fertur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Albertus Magnus, De mineralibus, liber II, tractatus II, caput IX",
+        "href": "https://summa.fwoar.co/albert/mineralium/liber-02-tractatus-02.html",
+        "text": "Kacaman lapis est frequenter albus in toto vel in parte. Varius enim est in colore, frequentissime invenitur immixtus onyxine. Virtus ejus autem fertur esse ex imaginibus et sculpturis quae inveniuntur in ipso, et ex sigillis de quibus in sequentibus habebitur tractatus."
+      }
+    ]
+  }
+]

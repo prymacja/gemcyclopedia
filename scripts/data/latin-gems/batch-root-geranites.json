@@ -1,0 +1,24 @@
+[
+  {
+    "id": "Gems/Geranites",
+    "title": "Geranites",
+    "summary": "Geranites a gruis collo nomen traxit; hic Plinius de eius aliis proprietatibus nihil dicit.",
+    "overview": [
+      [
+        "Nomen",
+        "A collo gruis derivatur."
+      ],
+      [
+        "Alia",
+        "In hoc testimonio color et virtus non describuntur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "C. Plinius Secundus, Naturalis historia 37.11.187",
+        "href": "https://morcus.net/work/pliny_elder/naturalis_historia/37.11",
+        "text": "a gruis collo geranitis"
+      }
+    ]
+  }
+]

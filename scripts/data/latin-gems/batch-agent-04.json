@@ -1,0 +1,555 @@
+[
+  {
+    "id": "Gems/Cat’s-eye",
+    "title": "Beli oculus",
+    "summary": "Beli oculus albicans pupillam nigram circumdat, quae medio aureo fulgore lucet.",
+    "overview": [
+      [
+        "Nomina",
+        "Beli oculus."
+      ],
+      [
+        "Species",
+        "Albicans, pupilla nigra medio aureo fulgore lucente."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Isidorus Hispalensis, Etymologiae XVI, caput X",
+        "href": "../Texts/Isidore%20-%20Etymologies%20-%20Latin.html#caput-x-de-candidis",
+        "text": "Beli oculus albicans pupillam cingit nigram e medio aureo fulgore lucentem, et propter speciem Assyriorum regi Belo dicatam; unde et appellata."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Cegolites",
+    "title": "Cegolites",
+    "summary": "Cegolites ossi olivae colore et magnitudine similis est. In Iudaea inveniri dicitur; aqua tritus lapides renum et vesicae solvere fertur.",
+    "overview": [
+      [
+        "Nomina",
+        "Cegolites; Cogolites."
+      ],
+      [
+        "Species",
+        "Ossi olivae colore et magnitudine similis; intus alumen vel argentum imitatur."
+      ],
+      [
+        "Locus",
+        "In Iudaea saepe invenitur, ut Camillus scribit."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Albertus Magnus, De mineralibus, tractatus II",
+        "href": "../Texts/Albertus%20-%20Book%20of%20Minerals%20-%20Latin.html",
+        "text": "CEGOLITES lapis est in colore et quantitate similis ossi olivae, de quo referunt quod est expertum, quod dissolutus in aqua et rasus et sic haustus, dissipat lapidem in renibus et vesica."
+      },
+      {
+        "title": "Camillus Leonardi, Speculum lapidum",
+        "href": "../Texts/Camillo%20Leonardi%20-%20Speculum%20Lapidum%20cited%20entries%20-%20Latin.html#cegolites-cogolites",
+        "text": "Cogolites seu Cegolites a doctoribus medicinae Iudaicus lapis dicitur, ex sua ibi frequenti inventione similis olivae nucleo. Intus vero colore aluminis seu argenti, non gratus visu sed opportunus medicis."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Celidonius",
+    "title": "Celidonius",
+    "summary": "Celidonius parvus lapis est, qui in ventre hirundinis invenitur; niger aut rufus esse potest.",
+    "overview": [
+      [
+        "Nomina",
+        "Celidonius; Chelidonius."
+      ],
+      [
+        "Species",
+        "Parvus et informis; niger aut rufus."
+      ],
+      [
+        "Locus",
+        "In ventre hirundinis invenitur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Albertus Magnus, De mineralibus, tractatus II",
+        "href": "../Texts/Albertus%20-%20Book%20of%20Minerals%20-%20Latin.html",
+        "text": "CELIDONIUS duas habet species. Unus est niger, alter rufus invenitur : trahuntur autem ambo de ventre hirundinis."
+      },
+      {
+        "title": "Marbodus Redonensis, De lapidibus, XVII",
+        "href": "../Texts/Marbodus%20-%20De%20lapidibus%20-%20Latin.html#xvii-de-chelidonio",
+        "text": "At Chelidonius lapis est quem gignit hirundo, Ventre gerens pretium quo digna sit ipsa necari. Nec de fulgentum numero lapis iste putetur. Parvus et informis, sed nulli viribus impar, Praeclaros quosdam lapides praeit utilitate. Hujus sunt binae species, geminique colores; Nam niger et rufus caeso de ventre trahuntur. Cedit gestato lunatica passio rufo. Curat et insanos, et languores diuturnos."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Celontes",
+    "title": "Celontes",
+    "summary": "Celontes purpureus esse et in testudine inveniri dicitur. Camillus tria eius genera memorat: uterinum, cephalicum et hepaticum.",
+    "overview": [
+      [
+        "Nomina",
+        "Celontes; Celonites; Drome (apud Camillum)."
+      ],
+      [
+        "Species",
+        "Uterinus varius ac purpureus; alia genera cephalica et hepatica."
+      ],
+      [
+        "Locus",
+        "In magna testudine invenitur, secundum Camillum."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Albertus Magnus, De mineralibus, tractatus II",
+        "href": "../Texts/Albertus%20-%20Book%20of%20Minerals%20-%20Latin.html",
+        "text": "CELONTES lapis est purpurei coloris"
+      },
+      {
+        "title": "Camillus Leonardi, Speculum lapidum",
+        "href": "../Texts/Camillo%20Leonardi%20-%20Speculum%20Lapidum%20cited%20entries%20-%20Latin.html#celontes-sive-celonites",
+        "text": "Celonites seu Celontes in triplici genere, ut quidam volunt, existit. Extrahiturque ex magna testudine in colore margaritae habente testam. Uterinus vero varius ac purpureus est, cuius proprium est igni resistere. Virtus eius in hoc censetur digna praeconio: quod si quis aegroto, ablato ore, sub lingua gesserit, fert continuo quasi divino pyramine futura praedicere. Tempore hac fit: die quodam toto primae lunae ac XV. Diebus vero ceteris totius lunaris ascensus ab ortu solis usque ad VI horam quotidie. Descensus vero toto tempore anni die viribus huiusmodi largit effectum. Alii duo lapides cephalicus ac hepaticus sunt, quorum virtutes non exiguae sunt. Cephalicus quidem dictus est ex sua inventione, cum in capite reperiatur; praevalet quidem ad capitis dolores, resistitque fulminibus. Hepaticus vero ex inventione dicitur; cum aqua tritus ac bibitus ante accessionem quartanae mirabiliter liberat. Hi sunt quoque lapides dicti dromi. Gestati vero cum radice paeoniae gestantes faciunt somnia respondentia."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Cepionidus",
+    "title": "Cepionidus",
+    "summary": "Cepionidus multorum colorum et translucens est; nunc iaspidi, nunc crystallo, interdum smaragdo similis apparet.",
+    "overview": [
+      [
+        "Nomina",
+        "Cepionidus."
+      ],
+      [
+        "Species",
+        "Multorum colorum et translucens; iaspidis, crystalli vel smaragdi similitudinem reddit."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Camillus Leonardi, Speculum lapidum",
+        "href": "../Texts/Camillo%20Leonardi%20-%20Speculum%20Lapidum%20cited%20entries%20-%20Latin.html#cepionidus",
+        "text": "Cepionidus ex coloribus multis ac translucens aspicienti similitudinem reddens, modo iaspidis, modo crystalli, aliquando smaragdi."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Cepites",
+    "title": "Cepites",
+    "summary": "Cepites candidus est, nodos venarum marmoris candentis habens; in eo diversarum rerum imagines apparent.",
+    "overview": [
+      [
+        "Nomina",
+        "Cepites; Cepocapites."
+      ],
+      [
+        "Species",
+        "Candidus, nodis venarum marmoris candentis; variae imagines in eo apparent."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Camillus Leonardi, Speculum lapidum",
+        "href": "../Texts/Camillo%20Leonardi%20-%20Speculum%20Lapidum%20cited%20entries%20-%20Latin.html#cepites-sive-cepocapites",
+        "text": "Cepocapites seu Cepites candidus lapis est, habens nodos venarum marmoris candentis; coeuntes ac imagines diversarum rerum in eo figurantur, ut in Achate sit."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Ceranius",
+    "title": "Ceranius",
+    "summary": "Ceranius pyramidalis est; duo eius genera crystallinum croceum et pyritis colore describuntur. Ex nubibus prope locum fulminis cadere fertur.",
+    "overview": [
+      [
+        "Nomina",
+        "Ceranius; Cerraolus; Ombria (apud Camillum)."
+      ],
+      [
+        "Species",
+        "Pyramidalis; crystallinus croceo infectus aut pyritis colore. Hispanicus quasi flamma rutilat."
+      ],
+      [
+        "Locus",
+        "Ex nubibus prope locum ictui fulminis cadere fertur; Germanicum primum esse dicitur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Camillus Leonardi, Speculum lapidum",
+        "href": "../Texts/Camillo%20Leonardi%20-%20Speculum%20Lapidum%20cited%20entries%20-%20Latin.html#ceranius-sive-cerraolus",
+        "text": "Ceranius seu Cerraolus lapis est forma pyramidale; huius genera cum bina sunt: crystallinum croceo infectum, alterum colore pyritis. Ferunt ex nubibus cadere et in loco propinquo ictui fulminis. Germanicus primus est; Hispanicus vero secundus, ut ignis flamma rutilans est."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Ceraunium",
+    "title": "Ceraunium",
+    "summary": "Ceraunium duo genera habet: Germanicum caeruleum et Lusitanum rubentem, igni similem. Lapis fulmine cadere dicitur et contra fulmina opitulari.",
+    "overview": [
+      [
+        "Nomina",
+        "Ceraunium; Ceraunius."
+      ],
+      [
+        "Species",
+        "Germanicum caeruleum, crystallo simile; Lusitanum colore pyropi rubentis et qualitate ignis."
+      ],
+      [
+        "Locus",
+        "Germania et litora Lusitaniae; prope locum fulmine ictum invenitur."
+      ],
+      [
+        "Proprietas",
+        "Contra vim fulgurum opitulari fertur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Isidorus Hispalensis, Etymologiae XVI, caput XIII",
+        "href": "../Texts/Isidore%20-%20Etymologies%20-%20Latin.html#caput-xiii-de-crystallinis",
+        "text": "Cerauniorum duo genera sunt. Unum, quod Germania mittit, crystallini simile, splendet tamen caeruleo, et si sub divo positum fuerit, fulgorem rapit siderum. Ceraunium alterum Hispania in Lusitanis litoribus gignit, cui color e pyropo rubenti, et qualitas ut ignis. Haec adversus vim fulgurum opitulari fertur, si credimus. Dicta autem ceraunia quoniam alibi non inveniatur quam in loco fulmine icto proximo; Graece enim fulmen κεραυνὸς dicitur."
+      },
+      {
+        "title": "Thomas Cantimpratensis, Liber de natura rerum XIV, caput 21",
+        "href": "../Texts/Thomas%20Cantimpre%20-%20Liber%20de%20natura%20rerum%20-%20Latin.html#xiv-21-de-ceraunio-f-170r",
+        "text": "Ceraunius lapis est coloris cerulei, qui quasi Graeco sermone fulmine dictus est, quia in fulmine de caelo cadit. In loco ubi lapis hic fuerit fulmen cadere denegatur. Est autem acutus saepius ex una parte."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Chalazia",
+    "title": "Chalazias",
+    "summary": "Chalazias grandinis candorem et figuram praefert, adamantina duritie; in igne frigus suum retinere dicitur.",
+    "overview": [
+      [
+        "Nomina",
+        "Chalazias."
+      ],
+      [
+        "Species",
+        "Grandinis candorem et figuram habet; adamantina duritie est."
+      ],
+      [
+        "Proprietas",
+        "In ignem posita frigus suum retinere dicitur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Isidorus Hispalensis, Etymologiae XVI, caput X",
+        "href": "../Texts/Isidore%20-%20Etymologies%20-%20Latin.html#caput-x-de-candidis",
+        "text": "Chalazias grandinis et candorum praefert et figuram, duritia quoque invicta, ut adamas; etiam in ignes posita manere suum frigus."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Chalcantum",
+    "title": "Chalcantum",
+    "summary": "Chalcantum flos aeris appellatur. Olim in puteis Hispaniae aquae decoctae limum vitreis acinis similem relinquebant, qui per triginta dies siccabatur.",
+    "overview": [
+      [
+        "Nomina",
+        "Chalcantum; flos aeris."
+      ],
+      [
+        "Species",
+        "Limum vitreis acinis similem praebet."
+      ],
+      [
+        "Locus",
+        "Olim in puteis vel stagnis Hispaniae fiebat; nunc multis regionibus invenitur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Isidorus Hispalensis, Etymologiae XVI, caput II",
+        "href": "../Texts/Isidore%20-%20Etymologies%20-%20Latin.html#caput-ii-de-glebis-ex-aqua",
+        "text": "Chalcantum dictum quia chalcitis est thymum, id est flos; unde et apud Latinos aeris flos appellatur. Fit autem nunc multis in regionibus; olim in Hispaniae puteis vel stagnis id genus aquae habentibus, quam decoquebant et in piscinas ligneas fundebant, adpendentes super eas restes lapillis extentas, quibus limus in similitudinem vitreis acinis adhaerebat, sicque eiectum siccabatur diebus triginta."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Chalcedony",
+    "title": "Calcedonius",
+    "summary": "Calcedonius pallidus est, interdum fuscus aut rufus; colores varii in uno lapide misceri possunt. Aethiopia et Germania species eius producunt.",
+    "overview": [
+      [
+        "Nomina",
+        "Chalcedonius; Calcedonius; Calcedon."
+      ],
+      [
+        "Species",
+        "Pallidus, fuscus aut rufus; species interdum in uno lapide permixtae."
+      ],
+      [
+        "Locus",
+        "Aethiopia, Germania et montes Italiae."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Camillus Leonardi, Speculum lapidum",
+        "href": "../Texts/Camillo%20Leonardi%20-%20Speculum%20Lapidum%20cited%20entries%20-%20Latin.html#chalcedonius",
+        "text": "Calcedonius sive Calcedon, ut quidam dicunt, in colore pallidus est. Sed saphirinus praestantior; a doctoribus vero tres species magis notae ponuntur, licet a nonnullis plures. Nam hodiernis temporibus tot diversae species Germania producit quod vanum esset enarrare. Nam saphirinum primum occupat locum. Pallidus fuscus parum albescenti subsequitur. Vitimus est rubeus extinctus, non transparens. Multoties hae permixtae sunt species et in uno tamen lapide reperiuntur variis coloribus. Omnibus locis spectatissimus; Aethiopia producit. Non est in littore Adriatici maris; in montibus Italiae calcedonii albi pallentes ac etiam fusci durissimi reperiuntur."
+      },
+      {
+        "title": "Thomas Cantimpratensis, Liber de natura rerum XIV",
+        "href": "../Texts/Thomas%20Cantimpre%20-%20Liber%20de%20natura%20rerum%20-%20Latin.html#calcedonius",
+        "text": "Calcedonius hebetis est coloris et crassi. semper pallidus. Color tamen eius inter jacinctum et berillum est medius. Qui si collo feratur vel digito causas vincere perhibetur. Cuius lapidis species tres esse dicuntur."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Chalcitis",
+    "title": "Chalcitis",
+    "summary": "Chalcitis aerei coloris est.",
+    "overview": [
+      [
+        "Nomina",
+        "Chalcitis."
+      ],
+      [
+        "Species",
+        "Aerei coloris."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Isidorus Hispalensis, Etymologiae XVI, caput XV",
+        "href": "../Texts/Isidore%20-%20Etymologies%20-%20Latin.html#caput-xv-de-aureis",
+        "text": "Chalcitis aerei coloris est."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Chalcophonos",
+    "title": "Chalcophonos",
+    "summary": "Chalcophonos nigra est; lapidi illisa aeris tinnitum reddit.",
+    "overview": [
+      [
+        "Nomina",
+        "Chalcophonos; Cacephanus (apud Cantimpratensem)."
+      ],
+      [
+        "Species",
+        "Nigra."
+      ],
+      [
+        "Proprietas",
+        "Lapidi illisa aeris tinnitum reddit."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Isidorus Hispalensis, Etymologiae XVI, caput XV",
+        "href": "../Texts/Isidore%20-%20Etymologies%20-%20Latin.html#caput-xv-de-aureis",
+        "text": "Chalcophonos nigra est, sed lapidi inlisa aeris tinnitum reddit."
+      },
+      {
+        "title": "Thomas Cantimpratensis, Liber de natura rerum XIV, Cacephanus",
+        "href": "../Texts/Thomas%20Cantimpre%20-%20Liber%20de%20natura%20rerum%20-%20Latin.html#cacephanus",
+        "text": "Cacephanus lapis est niger. qui si portetur ab homine casto vocem reddit dulcem et sonoram. defenditque fauces raucitate. Est autem lapis ipse sonorus ac dulcis instar eris. si ferro percuciatur aut ere."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Chalcosmaragdos",
+    "title": "Chalcosmaragdus",
+    "summary": "Chalcosmaragdus viridis et venis aereis turbida est. In Aegypto vel Cypro nascitur.",
+    "overview": [
+      [
+        "Nomina",
+        "Chalcosmaragdus."
+      ],
+      [
+        "Species",
+        "Viridis, venis aereis turbida."
+      ],
+      [
+        "Locus",
+        "In Aegypto vel Cypro nascitur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Isidorus Hispalensis, Etymologiae XVI, caput VII",
+        "href": "../Texts/Isidore%20-%20Etymologies%20-%20Latin.html#caput-vii-de-viridioribus-gemmis",
+        "text": "Chalcosmaragdus dicta quod viridis sit et turbida aereis venis. Haec in Aegypto vel Cypro insula nascitur."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Chelidonia",
+    "title": "Chelidonia",
+    "summary": "Chelidonia ex colore hirundinis appellata est. Duae eius species sunt: una ex parte purpurea, altera purpurea nigris maculis intermixtis.",
+    "overview": [
+      [
+        "Nomina",
+        "Chelidonia."
+      ],
+      [
+        "Species",
+        "Duae species purpureae: altera ex una parte purpurea, altera nigris maculis intermixtis."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Isidorus Hispalensis, Etymologiae XVI, caput IX",
+        "href": "../Texts/Isidore%20-%20Etymologies%20-%20Latin.html#caput-ix-de-purpureis",
+        "text": "Chelidonia ex hirundinum colore vocata; et duorum est generum, quarum una ex altera parte purpurea, et alia purpurea nigris intervenientibus maculis."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Chelonites",
+    "title": "Chelonitis",
+    "summary": "Chelonitis oculus testudinis Indicae est, varius et purpureus. Magi eam sub lingua positam futura praedicere finguntur.",
+    "overview": [
+      [
+        "Nomina",
+        "Chelonitis; Chelonites."
+      ],
+      [
+        "Species",
+        "Varius et purpureus."
+      ],
+      [
+        "Locus",
+        "Oculus testudinis Indicae."
+      ],
+      [
+        "Proprietas",
+        "Magi lapidem sub lingua positum futura praedicere finguntur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Isidorus Hispalensis, Etymologiae XVI, caput XV",
+        "href": "../Texts/Isidore%20-%20Etymologies%20-%20Latin.html#caput-xv-de-aureis",
+        "text": "Chelonitis oculus est Indicae testudinis, varius et purpureus. Hunc magi inpositum linguae futura pronuntiare finguntur."
+      },
+      {
+        "title": "Marbodus Redonensis, De lapidibus, XXXIX",
+        "href": "../Texts/Marbodus%20-%20De%20lapidibus%20-%20Latin.html#xxxix-de-chelonite",
+        "text": "Indica testudo lapidem mittit chelonitem Gratum purpureo, varioque colore nitentem, Quem si sub lingua loto quis gesserit ore Posse magi credunt hunc divinare futura, Orto mane die sextam duntaxat ad horam."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Chemites",
+    "title": "Chemites",
+    "summary": "Chemites ebori similis est, non ponderosus et marmore dura; mortuorum corpora a putrefactione et vermibus servare dicitur.",
+    "overview": [
+      [
+        "Nomina",
+        "Chemites; Porus (apud Isidorum)."
+      ],
+      [
+        "Species",
+        "Ebori similis; non ponderosus, marmoris duritiem habens."
+      ],
+      [
+        "Proprietas",
+        "Mortuorum corpora a vermibus et putrefactione diu servare dicitur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Camillus Leonardi, Speculum lapidum",
+        "href": "../Texts/Camillo%20Leonardi%20-%20Speculum%20Lapidum%20cited%20entries%20-%20Latin.html#chemites",
+        "text": "Chemites eboris similitudinem habens, non ponderosus, in duritie marmoris lapis est. Illaesa mortuorum corpora a vermibus ac putrefactione longo aevo servare narrant."
+      },
+      {
+        "title": "Isidorus Hispalensis, Etymologiae XVI, caput IV",
+        "href": "../Texts/Isidore%20-%20Etymologies%20-%20Latin.html#caput-iv-de-lapidibus-insignioribus",
+        "text": "Chemites ebori similis, in quo Darium conditum ferunt, Parioque similis candore et duritia, minus tantum ponderosus, qui porus vocatur."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Choaspitis",
+    "title": "Choaspitis",
+    "summary": "Choaspitis a flumine Persarum nomen accepit; viridi colore fulgorem aureum habet.",
+    "overview": [
+      [
+        "Nomina",
+        "Choaspitis."
+      ],
+      [
+        "Species",
+        "Viridi colore fulgoris aurei."
+      ],
+      [
+        "Origo nominis",
+        "A flumine Persarum."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Isidorus Hispalensis, Etymologiae XVI, caput VII",
+        "href": "../Texts/Isidore%20-%20Etymologies%20-%20Latin.html#caput-vii-de-viridioribus-gemmis",
+        "text": "Choaspitis a flumine Persarum dicta est, ex viridi fulgoris aurei."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Chryselectrum",
+    "title": "Chryselectrus",
+    "summary": "Chryselectrus auro similis est et colorem electri habet. Mane iucundior apparet; igni proximus celeriter ardescit.",
+    "overview": [
+      [
+        "Nomina",
+        "Chryselectrus; Criselectrus; Chryselectrum."
+      ],
+      [
+        "Species",
+        "Auro similis, colore ad electrum vergens; mane iucundior."
+      ],
+      [
+        "Proprietas",
+        "Ignibus proximus celeriter ardescit."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Isidorus Hispalensis, Etymologiae XVI, caput XV",
+        "href": "../Texts/Isidore%20-%20Etymologies%20-%20Latin.html#caput-xv-de-aureis",
+        "text": "Chryselectrus similis auro, sed in colorem electri vergens, matutino tantum aspectu iucundus, rapacissimus ignium, et, si iuxta fuerit, celerrime ardescens."
+      },
+      {
+        "title": "Marbodus Redonensis, De lapidibus, LIX",
+        "href": "../Texts/Marbodus%20-%20De%20lapidibus%20-%20Latin.html#lix-de-criselectro",
+        "text": "Esse Criselectrus similis describitur auro Cujus ad electrum color inclinare videtur. Hic matutinis visu jucundior horis, Dissimilem speciem post aspicientibus offert; Cujus materies rapidissima dicitur ignis, Nam cito vicino correptus flagrat in igne."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Chrysoberyllus",
+    "title": "Chrysoberyllus",
+    "summary": "Chrysoberyllus pallida viriditate in aureum colorem resplendet. India hunc lapidem mittit.",
+    "overview": [
+      [
+        "Nomina",
+        "Chrysoberyllus."
+      ],
+      [
+        "Species",
+        "Pallida viriditas in aureum colorem resplendet."
+      ],
+      [
+        "Locus",
+        "India hunc mittit."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Isidorus Hispalensis, Etymologiae XVI, caput VII",
+        "href": "../Texts/Isidore%20-%20Etymologies%20-%20Latin.html#caput-vii-de-viridioribus-gemmis",
+        "text": "Chrysoberyllus dictus eo quod pallida eius viriditas in aureum colorem resplendeat. Et hunc India mittit."
+      }
+    ]
+  }
+]

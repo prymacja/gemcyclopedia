@@ -1,0 +1,32 @@
+[
+  {
+    "id": "Gems/Doriatides",
+    "title": "Doriatides",
+    "summary": "Doriatides lapis niger et lucidus est. Virtus eius optata perficere et ad vota deducere dicitur.",
+    "overview": [
+      [
+        "Nomina",
+        "Doriatides; apud Camillum, Radaim cognatum esse dicitur."
+      ],
+      [
+        "Species",
+        "Niger et lucidus."
+      ],
+      [
+        "Locus",
+        "In capite [murilaginis?] invenitur; alii in capite galli quaerunt."
+      ],
+      [
+        "Virtus",
+        "Optata perficere et ad vota deducere dicitur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Camillus Leonardi, Speculum lapidum",
+        "href": "../Texts/Camillo%20Leonardi%20-%20Speculum%20Lapidum%20cited%20entries%20-%20Latin.html#doriatides",
+        "text": "Doriatides. Lapis invenitur in capite [murilaginis?], cum subito excidit, et ad [vescendum?] datur formicis; color eius niger, lucidus est. Nonnulli volunt quod ex capite galli extrahatur, ut infra [Radam?]. Optata perficere ac ad vota omnia deducere virtus eius est."
+      }
+    ]
+  }
+]

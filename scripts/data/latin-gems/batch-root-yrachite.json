@@ -1,0 +1,32 @@
+[
+  {
+    "id": "Gems/Yrachite",
+    "title": "Rachiten",
+    "summary": "Rachiten lapis est qui ab homine gestatur. Qui eum gerit, a muscis non mordetur nec ab apibus infestatur; contra venenum quoque valere creditur.",
+    "overview": [
+      [
+        "Nomen",
+        "Rachiten."
+      ],
+      [
+        "Species",
+        "Non describitur."
+      ],
+      [
+        "Usus",
+        "Ab homine gestatur."
+      ],
+      [
+        "Virtus",
+        "Qui eum gerit a muscis non mordetur nec ab apibus infestatur; contra venenum valere creditur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Bartholomaeus Anglicanus, De proprietatibus rerum, liber XVI, Rachiten",
+        "href": "../Texts/Bartholomaeus%20-%20De%20proprietatibus%20rerum%20Book%20XVI%20-%20Latin.html#rachiten",
+        "text": "Rachiten est lapis qui gestatur ab homine; non mordetur a muscis nec ab apibus infestatur, ut dicit Diascorides, et creditur valere contra venenum."
+      }
+    ]
+  }
+]

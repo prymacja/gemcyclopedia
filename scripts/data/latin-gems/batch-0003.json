@@ -1,0 +1,303 @@
+[
+  {
+    "id": "Gems/Dactylus of Ida",
+    "title": "Idaeus dactylus",
+    "summary": "Idaeus dactylus in Creta invenitur. Ferrei coloris est et pollicem humanum forma refert.",
+    "overview": [
+      [
+        "Nomina",
+        "Idaeus dactylus; Idaeus."
+      ],
+      [
+        "Species",
+        "Ferrei coloris, pollici humano similis."
+      ],
+      [
+        "Locus",
+        "In insula Creta, in monte Ida."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Isidorus Hispalensis, Etymologiae XVI",
+        "href": "../Texts/Isidore%20-%20Etymologies%20-%20Latin.html#caput-xv-de-aureis",
+        "text": "Idaeus dactylus ex insula Creta est, ferrei coloris. Causa nominis eius quia pollicem humanum exprimit."
+      },
+      {
+        "title": "Solinus, Collectanea rerum memorabilium XI.14",
+        "href": "../Texts/Solinus%20-%20Collectanea%20rerum%20memorabilium%20-%20Latin.html#11-14",
+        "text": "Lapis quoque Idaeus dactylus dicitur insulae isti familiaris, coloris ferrei, humano pollici similis."
+      },
+      {
+        "title": "Camillus Leonardi, Speculum lapidum",
+        "href": "../Texts/Camillo%20Leonardi%20-%20Speculum%20Lapidum%20cited%20entries%20-%20Latin.html#idaeus",
+        "text": "Idaeus ferrugineus huius lapis est; reperitur in Ideo monte Creta, a quo nomen sumpsit, humani pollicis formam habens."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Daemonius",
+    "title": "Daemonius",
+    "summary": "Daemonius bicolor est et arcui caelesti similis. Febricitantibus prodesse et venena expellere dicitur.",
+    "overview": [
+      [
+        "Nomina",
+        "Daemonius; Diamon (apud Albertum)."
+      ],
+      [
+        "Species",
+        "Bicolor, arcui caelesti similis."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Albertus Magnus, De mineralibus, tractatus II",
+        "href": "../Texts/Albertus%20-%20Book%20of%20Minerals%20-%20Latin.html",
+        "text": "DIAMON fertur autem quidam lapis daemonis vocari lapis bicolor, ut arcus daemonis qui iris vocatur. Et conferre hunc dicunt febricitantibus, et venenosa pellere."
+      },
+      {
+        "title": "Camillus Leonardi, Speculum lapidum",
+        "href": "../Texts/Camillo%20Leonardi%20-%20Speculum%20Lapidum%20cited%20entries%20-%20Latin.html#daemonius",
+        "text": "Daemonius bini coloris permixtus ut iridis arcus lapis est; nomen a similitudine iridis, quae daemonis arcus dicitur, sumpsit. Febricitantibus confert; venena expellit. Gestantem ab hostibus tutum ac victorem reddere virtute eius esse dicunt."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Diacodos",
+    "title": "Diacodos sive Diadocos",
+    "summary": "Diacodos pallidus est et beryllo similis. Auctores ei vim adscribunt qua daemones apparere faciat et responsa petentibus det; mortuorum autem contactum abhorrere dicitur.",
+    "overview": [
+      [
+        "Nomina",
+        "Diacodos; Diadocos."
+      ],
+      [
+        "Species",
+        "Pallidus, colore beryllo similis."
+      ],
+      [
+        "Locus",
+        "In his testimoniis non indicatur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Albertus Magnus, De mineralibus, tractatus II",
+        "href": "../Texts/Albertus%20-%20Book%20of%20Minerals%20-%20Latin.html",
+        "text": "DIACODOS autem lapis pallidus dicitur esse aliquantulum beryllo similis : dicitur autem in tantum phantasmata excitare, quod magi maxime hoc utuntur, tamen applicatus defuncto in tantum vires amittit, quod mortem horrere perhibeatur."
+      },
+      {
+        "title": "Camillus Leonardi, Speculum lapidum",
+        "href": "../Texts/Camillo%20Leonardi%20-%20Speculum%20Lapidum%20cited%20entries%20-%20Latin.html#diacodos-sive-diadocos",
+        "text": "Diacodos sive Diadocos colore berillo similis est, cum palliditate. Praecantationis exagitat daemones, ut in aliquo apparere faciat. Nam iniectus in aqua cum sua praecantatione varias daemonum effigies figurat ac petentibus dat responsa. In ore quoque detentus quem daemonem quis vult ab inferis revocat et in petitionibus suis adimplebit desiderium. Mortuorum corpora abhorret; nam si cum eo defuncti corpus tetigeris, virtutibus viduatum eum agnosces."
+      },
+      {
+        "title": "Thomas Cantimpratensis, Liber de natura rerum, XIV.26",
+        "href": "../Texts/Thomas%20Cantimpre%20-%20Liber%20de%20natura%20rerum%20-%20Latin.html#xiv-26-de-diadoco-f-170r",
+        "text": "Diadocos lapis est qui, iniectus aquis variis, efficit effigies daemonum, ita ut det responsa petentibus. Hic si admoveatur corpori defuncti, subtrahat se, quasi si sensibiliter abhorreat mortem. Berillo similis est in colore."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Diamond",
+    "title": "Adamas",
+    "summary": "Adamas lapis durissimus est, lucidus et fulgens. Arabia et Cyprus praecipue eum gignunt; quidam diamantem vocant.",
+    "overview": [
+      [
+        "Nomina",
+        "Adamas; Adamas etiam diamantem vocatur."
+      ],
+      [
+        "Species",
+        "Durissimus, paulum crystallo obscurior, tamen lucidus et fulgens."
+      ],
+      [
+        "Locus",
+        "In Arabia et Cypro praecipue invenitur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Albertus Magnus, De mineralibus, tractatus II",
+        "href": "../Texts/Albertus%20-%20Book%20of%20Minerals%20-%20Latin.html",
+        "text": "ADAMAS autem, sicut superius fecimus mentionem, lapis est durissimus, parum crystallo obscurior, coloris tamen lucidi fulgentis, adeo solidus ut neque igne neque ferro mollescat vel solvatur. Solvitur tamen et mollescit sanguine et carne hirci, praecipue si hircus aliquandiu ante biberit vinum et petrosillum, vel siler montanum comederit : quia talis hirci sanguis etiam ad frangendum lapidem in vesica valet infirmis de calculo. Solvitur etiam lapis iste, quod mirabilius videtur, plumbo propter multum argentum vivum quod est in ipso. Hic autem lapis penetrat ferrum et caeteras gemmas omnes, praeter chalybem in quo retinetur. Non trahit autem ferrum, eo quod sit proprius locus generationis ejus, ut quidam mendose dixerunt. Major autem quantitas istius lapidis adhuc inventa est magnitudo avellanae. Nascitur autem in Arabia et Cypro secundum plurimum : sed Cyprus est magis mollis et obscurus. Et quod mirabile videtur multis, hic lapis quando magneti superponitur, ligat magnetem et non permittit ipsum ferrum trahere. Major autem virtus ejus est in auro vel argento vel chalybe. Dicuntque magi, quod lacerto sinistro alligatus, valet contra hostes et insaniam et indomitas bestias et feros homines et contra jurgia et rixas et contra venena et incursus phantasmatum et incuborum. Hunc autem lapidem diamantem etiam quidam vocant, etiam quidam ferrum attrahere mentiuntur."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Dionysia",
+    "title": "Dionysia",
+    "summary": "Dionysia nigra est et guttis rubris notata; quaedam exemplaria guttas albas habere dicuntur. Aqua trita vinum redolere facit, odore autem ebrietati resistere perhibetur.",
+    "overview": [
+      [
+        "Nomina",
+        "Dionysia; Dyonysia apud Cantimpratensem."
+      ],
+      [
+        "Species",
+        "Nigra, rubentibus guttis; apud quosdam fusca aut ferruginea, guttis niveis aspersa."
+      ],
+      [
+        "Locus",
+        "In Oriente reperitur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Isidorus Hispalensis, Etymologiae XVI, XI.8",
+        "href": "../Texts/Isidore%20-%20Etymologies%20-%20Latin.html#caput-xi-de-nigris",
+        "text": "Dionysia nigra mixtis rubentibus notis ex aqua trita vinum fragrat, et odore suo ebrietati resistere putatur."
+      },
+      {
+        "title": "Camillus Leonardi, Speculum lapidum",
+        "href": "../Texts/Camillo%20Leonardi%20-%20Speculum%20Lapidum%20cited%20entries%20-%20Latin.html#dionysia",
+        "text": "Dionysia nigra est ac guttis rubeis aspersa; dicunt aliqui fuscum seu ferrugineum habere colorem, aspersum guttis niveis. In Oriente reperitur. Si in aqua soluta fuerit, vini odorem tribuit; suo odore ebrietatem fugat ac vini odorem subvertit et evaporare facit."
+      },
+      {
+        "title": "Thomas Cantimpratensis, Liber de natura rerum, XIV",
+        "href": "../Texts/Thomas%20Cantimpre%20-%20Liber%20de%20natura%20rerum%20-%20Latin.html#xiv-25-de-dyonisia-lapide-f-170r",
+        "text": "Dyonisia lapis est orientalis, fusci coloris et niveis respersus guttis. Hic lapis in aqua tritus vinum flagrare facit; et tamen contra naturam ebrietas fugatur eius odore. Odor enim vini ebrietatem inducit naturaliter, etiam absque potu. Nigra micat niveis Dyonisia consita guttis."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Doctus",
+    "title": "Doctus",
+    "summary": "Doctus lapis virens est et quadam claritate fulget. Camillus eum chrysolitum esse putat.",
+    "overview": [
+      [
+        "Nomina",
+        "Doctus."
+      ],
+      [
+        "Species",
+        "Virens, quadam claritate praeditus."
+      ],
+      [
+        "Locus",
+        "In hoc testimonio non indicatur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Camillus Leonardi, Speculum lapidum",
+        "href": "../Texts/Camillo%20Leonardi%20-%20Speculum%20Lapidum%20cited%20entries%20-%20Latin.html#doctus",
+        "text": "Doctus lapis virens est cum claritate quadam, et credo quod sit chrysolitus, ut supra dictum est."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Draconites",
+    "title": "Draconites",
+    "summary": "Draconites e cerebro draconis sumitur, et nisi vivo draconi auferatur, gemma fieri non dicitur. Candore translucet; venena, maxime serpentium, pellere dicitur.",
+    "overview": [
+      [
+        "Nomina",
+        "Draconites; Dracontites."
+      ],
+      [
+        "Species",
+        "Candore translucens; alii colores in aliis testimoniis traduntur."
+      ],
+      [
+        "Locus",
+        "Ex cerebro draconis sumitur; in Oriente reperiri dicitur."
+      ],
+      [
+        "Virtutes",
+        "Venenum, maxime serpentium, fugat; vim amittere dicitur, nisi ex vivo dracone sumatur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Isidorus Hispalensis, Etymologiae XVI, XIV.7",
+        "href": "../Texts/Isidore%20-%20Etymologies%20-%20Latin.html#caput-xiv-de-ignitis",
+        "text": "Dracontites ex cerebro draconis eruitur. Quae nisi viventi abscisa fuerit, non ingemmescit; unde et eam magi dormientibus draconibus amputant. Audaces enim viri explorant draconum specus, spargunt ibi gramina medicata ad incitandum draconum soporem, atque ita somno sopitis capita desecant et gemmas detrahunt. Sunt autem candore translucido. Usu earum orientis reges praecipue gloriantur."
+      },
+      {
+        "title": "Camillus Leonardi, Speculum lapidum",
+        "href": "../Texts/Camillo%20Leonardi%20-%20Speculum%20Lapidum%20cited%20entries%20-%20Latin.html#draconites-dentrites-draconius-or-obsianus",
+        "text": "Draconites sive Dentrites aut Draconius vel Obsianus, qui [Kimedius?] vespertinus vocatur, lucidus ac transparens crystallini coloris lapis est secundum aliquos. Nigri colore Albertus Magnus ponit, figura quoque pyramidali non lucida habere dicit. Nonnulli dicunt lucidum esse ut speculum cum nigredine. Multi hunc quaerunt nec inveniunt. Transportatur ex Oriente, ubi magni dracones sunt. Nam exciso capite draconis, ipso adhuc palpitate, extrahitur. Virtutem amittit si diu post draconis mortem in capite remanserit. Audaces viri in partibus Orientis draconum speluncas explorant et in has gramen rebus somniferis medicatum imponunt. Dum dracones ad speluncam redeunt, comedunt ex medicamine, somno gravantur; dormientibus vero caput abscidunt et lapidem extrahunt. Excelsa ei virtus inest in effugando omne venenum, maxime serpentum. Gestantem quoque invictum ac audacem reddit. Ideo reges Orientis tali lapide gloriantur."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Drosolithus",
+    "title": "Drosolithus",
+    "summary": "Drosolithus varii coloris est. Ad ignem appropinquatus sudorem emittere dicitur.",
+    "overview": [
+      [
+        "Nomina",
+        "Drosolithus."
+      ],
+      [
+        "Species",
+        "Varii coloris."
+      ],
+      [
+        "Proprietas",
+        "Ad ignem appropinquatus velut sudorem emittit."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Isidorus Hispalensis, Etymologiae XVI, XII.2",
+        "href": "../Texts/Isidore%20-%20Etymologies%20-%20Latin.html#caput-xii-de-variis",
+        "text": "Drosolithus varius. Nominis causa quia si ad ignem adplicetur, velut sudorem mittit."
+      },
+      {
+        "title": "Camillus Leonardi, Speculum lapidum",
+        "href": "../Texts/Camillo%20Leonardi%20-%20Speculum%20Lapidum%20cited%20entries%20-%20Latin.html#drosolithus",
+        "text": "Drosolithus varii coloris lapis est, cuius nominis causa haec existit: quia ad ignem appropinquatus velut sudorem emittit."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Echidnes",
+    "title": "Echidnes",
+    "summary": "Echidnes maculas habet serpentis formam referentes.",
+    "overview": [
+      [
+        "Nomina",
+        "Echidnes."
+      ],
+      [
+        "Species",
+        "Maculis serpentinis notatus."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Camillus Leonardi, Speculum lapidum",
+        "href": "../Texts/Camillo%20Leonardi%20-%20Speculum%20Lapidum%20cited%20entries%20-%20Latin.html#echidnes",
+        "text": "Echidnes lapis est habens serpentina maculas."
+      }
+    ]
+  },
+  {
+    "id": "Gems/Effesstis",
+    "title": "Effestis sive Effectites",
+    "summary": "Effestis naturam speculi habere dicitur, imagines reddens. In Corintho invenitur.",
+    "overview": [
+      [
+        "Nomina",
+        "Effestis; Effectites."
+      ],
+      [
+        "Species",
+        "Speculi naturam habet in imaginibus reddendis."
+      ],
+      [
+        "Locus",
+        "In Corintho reperitur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Camillus Leonardi, Speculum lapidum",
+        "href": "../Texts/Camillo%20Leonardi%20-%20Speculum%20Lapidum%20cited%20entries%20-%20Latin.html#effestis-sive-effectites",
+        "text": "Effestis sive Effectites lapis est habens naturam speculi in reddendis imaginibus. In Corintho reperitur. Dicunt, si infuerit aqua, [lectio incerta]; ea calefit, et soli opposita ignem accendit in disposita materia."
+      }
+    ]
+  }
+]

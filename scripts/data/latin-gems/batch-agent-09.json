@@ -1,0 +1,32 @@
+[
+  {
+    "id": "Gems/Pyrope",
+    "title": "Pyropum",
+    "summary": "Hic locus pyropum in descriptione aeris ponit: auri scripulis aeri additis, brattea tenuissima ignescit et flammas imitatur. Pyropus mineralogiae hodiernae hic non describitur.",
+    "overview": [
+      [
+        "Nomen",
+        "Pyropum."
+      ],
+      [
+        "Materia",
+        "Singulis unciis aeris auri scripuli seni adduntur."
+      ],
+      [
+        "Forma",
+        "Brattea praetenui ignescit et flammas imitatur."
+      ],
+      [
+        "Distinctio",
+        "Hic pyropum in descriptione aeris ponit; gemma mineralogica hodierna hic non describitur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Isidorus Hispalensis, Etymologiae XVI.20, De aere",
+        "href": "../Texts/Isidore%20-%20Etymologies%20-%20Latin.html#caput-xx-de-aere",
+        "text": "Pyropum igneus color vocavit. Namque in singulas uncias aeris additis auri scripulis senis praetenui brattea ignescit flammasque imitatur; unde et pyropum dicitur."
+      }
+    ]
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "Gems/Absinthus",
+    "title": "Absinthus",
+    "summary": "Absinthus lapis niger est, rubris interdum guttulis notatus. Calefactus septem dies aut amplius calidus manet; apud Camillum octo dies leguntur.",
+    "overview": [
+      [
+        "Nomina",
+        "Absinthus; Abistos (apud Camillum)."
+      ],
+      [
+        "Species",
+        "Niger; rubris virgulis aut guttulis notatus; venis rubentibus et niveis, gravis."
+      ],
+      [
+        "Proprietas",
+        "Calefactus septem dies aut amplius calidus manet; Camillus octo dies memorat."
+      ],
+      [
+        "Locus",
+        "In his testimoniis non indicatur."
+      ]
+    ],
+    "sources": [
+      {
+        "title": "Albertus Magnus, De mineralibus, tractatus II",
+        "href": "../Texts/Albertus%20-%20Book%20of%20Minerals%20-%20Latin.html",
+        "text": "ABSINTHUS est de genere gemmarum coloris nigri, rubeis virgulis, et aliquando guttulis. Hujus autem virtus videtur esse imitans abestinum : absinthus enim permanet calidus per septem dies vel amplius propter eamdem causam quae dicta est de abestino lapide."
+      },
+      {
+        "title": "Camillus Leonardi, Speculum lapidum",
+        "href": "../Texts/Camillo%20Leonardi%20-%20Speculum%20Lapidum%20cited%20entries%20-%20Latin.html#abistos",
+        "text": "Abistos nigri coloris lapis est, rubentibus ac niveis venis lineatus. Ab igne calefactus post octo dies calorem in se retinet, gravis ac ponderosus existens, plusq sibi videt sua quantitas ministrare."
+      },
+      {
+        "title": "Thomas Cantimpratensis, Liber de natura rerum, XIV",
+        "href": "../Texts/Thomas%20Cantimpre%20-%20Liber%20de%20natura%20rerum%20-%20Latin.html#abscinthus",
+        "text": "Abscinthus lapis est colons nigri venis interlitis niveis. ponderosus nimium. Hie si calefactus ab igne fuerit. septem diebus calorem dicitur retinere."
+      }
+    ]
+  }
+]

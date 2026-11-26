@@ -10,6 +10,11 @@
     title: page.plTitle || page.title,
     description: page.plDescription || page.description,
     searchText: page.plSearchText || page.searchText,
+  }) : locale === "la" ? ({
+    ...page,
+    title: page.laTitle || page.title,
+    description: page.laDescription || page.description,
+    searchText: page.laSearchText || page.searchText,
   }) : page);
   const sourcePageById = new Map(sourceEntries.map((page) => [page.id, page]));
   const pageById = new Map(entries.map((page) => [page.id, page]));
