@@ -6,7 +6,6 @@ const indexPath = path.join(siteRoot, "assets", "content-index.js");
 
 const latinUi = {
   brand: "Gemcyclopedia",
-  tagline: "Encyclopaedia gemmarum, virium, locorum et fontium",
   search: "Quaere gemmas, vires, loca et fontes…",
   searchLabel: "Quaere in encyclopaedia",
   gems: "Gemmae",
@@ -188,7 +187,7 @@ function buildHome() {
   return `<!doctype html>
 <html data-locale="la" data-theme="dark" lang="la"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="dark light">
-<meta name="description" content="Encyclopaedia gemmarum, virium, locorum et fontium."><title>Gemcyclopedia · Domus</title>
+<meta name="description" content="Gemcyclopedia."><title>Gemcyclopedia · Domus</title>
 <link rel="icon" type="image/svg+xml" href="../assets/gem-mark.svg"><link rel="stylesheet" href="../assets/site.css?v=6">
 <script defer src="../assets/content-index.js?v=6"></script><script defer src="../assets/site.js?v=6"></script></head>
 <body class="home-page" data-current-page="home" data-site-base=".."><header class="topbar">
@@ -198,7 +197,7 @@ function buildHome() {
 <div class="page-shell"><aside class="left-rail" id="left-rail"><div class="rail-label" data-i18n="discover">INSPICE</div><nav class="primary-nav"><a class="home-link" data-i18n="home" href="index.html">Domus</a><a data-i18n="gems" href="../Gems/index.html">Gemmae</a><a data-i18n="powers" href="../Powers/Browse.html">Vires</a><a data-i18n="locations" href="../Locations/Browse.html">Loca</a><a data-i18n="sources" href="../Texts/index.html">Fontes</a></nav>
 <div class="rail-divider"></div><button class="rail-action" data-i18n="randomArticle" id="random-article">Articulum fortuitum aperi</button><button class="rail-action" data-i18n="randomGem" id="random-gem">Gemmam fortuitam aperi</button></aside>
 <main class="main-column" id="main-content"><div class="breadcrumbs"><a data-i18n="home" href="index.html">Domus</a><span>/</span><span>Domus</span></div>
-<section class="home-header"><h1>Gemcyclopedia</h1><p>Encyclopaedia gemmarum, virium, locorum et fontium.</p></section>
+<section class="home-header"><h1>Gemcyclopedia</h1></section>
 <section aria-label="Numeri collectionis" class="stats-row"><div><strong>318</strong><span>Gemmae</span></div><div><strong>15</strong><span>Vires</span></div><div><strong>31</strong><span>Loca</span></div><div><strong>21</strong><span>Textus fontium</span></div></section>
 <section class="featured-gem"><p class="section-label">Gemma selecta</p><div class="featured-gem-content"><div><h2><a href="../la/Gems/index.html" id="featured-gem-title">Gemma legitur…</a></h2><p class="featured-description" id="featured-gem-description"></p></div><a aria-label="Gemma selecta aperi" class="featured-image-link" href="../la/Gems/index.html" id="featured-gem-image-link"><img alt="" id="featured-gem-image" loading="lazy"></a></div></section>
 <section class="common-gems-section"><h2>Gemmae frequentes</h2><div class="common-gem-grid" id="common-gem-grid"></div><button class="button load-more-button" id="load-more-gems" type="button">Plura ostende</button></section>

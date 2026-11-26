@@ -27,6 +27,17 @@ function loadData() {
     if (!Array.isArray(batch)) throw new Error(`${file} must contain a JSON array`);
     for (const row of batch) rows.push({ ...row, _file: file });
   }
+  const sitePages = new Map(readSiteData().pages.map((page) => [page.id, page]));
+  for (const row of rows) {
+    const page = sitePages.get(row.id);
+    if (!page?.featureImage) continue;
+    row.featureImage = page.featureImage;
+    const sourcePath = path.join(siteRoot, page.href || `${row.id}.html`);
+    if (!fs.existsSync(sourcePath)) continue;
+    const sourceHtml = fs.readFileSync(sourcePath, "utf8");
+    const imageBlock = sourceHtml.match(/<div class="infobox-image">([\s\S]*?)<\/div>\s*<div class="infobox-table">/)?.[1] || "";
+    row.imageSource = imageBlock.match(/<a[^>]+href="(https:\/\/[^\"]+)"/)?.[1] || "";
+  }
   const seen = new Set();
   for (const row of rows) {
     if (!row.id || !row.title || !row.summary || !Array.isArray(row.overview) || !Array.isArray(row.sources) || !row.sources.length) {
@@ -62,11 +73,12 @@ function paragraph(text) { return `<p>${esc(text)}</p>`; }
 function renderPage(row) {
   const filename = row.file || `${row.id.slice("Gems/".length)}.html`;
   const pageId = row.id;
+  const title = row.title;
   const summary = esc(row.summary);
   const overviewRows = row.overview.map(([label, value]) => `<tr><th scope="row">${esc(label)}</th><td>${esc(value)}</td></tr>`).join("");
   const witnesses = row.sources.map((source, i) => `<section class="latin-testimony"><h3 id="witness-${i + 1}">${esc(source.title)}</h3>${paragraph(source.text)}<p><a href="${attr(source.href)}">Textum fontis lege</a></p></section>`).join("\n");
   const sourceList = row.sources.map((source, i) => `<li><a href="${attr(source.href)}">${esc(source.title)}</a></li>`).join("\n");
-  const title = row.title;
+  const image = row.featureImage ? `<div class="infobox-image"><figure class="embedded-image"><img alt="${attr(title)}" loading="lazy" src="../../${row.featureImage.split("/").map(encodeURIComponent).join("/")}"/></figure><p><em>${row.imageSource ? `<a href="${attr(row.imageSource)}" target="_blank" rel="noopener noreferrer">Fons imaginis</a>` : `<a href="../../${row.featureImage.split("/").map(encodeURIComponent).join("/")}">Fons imaginis</a>`}.</em></p></div>` : "";
   return `<!DOCTYPE html>
 <html data-locale="la" data-theme="dark" lang="la">
 <head>
@@ -76,15 +88,14 @@ function renderPage(row) {
 <link href="../../assets/gem-mark.svg" rel="icon" type="image/svg+xml"/>
 <link href="../../assets/site.css?v=3" rel="stylesheet"/>
 <script defer="" src="../../assets/content-index.js?v=6"></script><script defer="" src="../../assets/site.js?v=6"></script>
-<style>.article-content[data-page-title]{line-height:1.7}.overview-table th{min-width:8rem}.latin-testimony{margin-block:1.5rem}.latin-testimony p{font-family:Georgia,serif}.latin-testimony a{font-family:inherit}</style>
+<style>.article-content[data-page-title]{line-height:1.7}.latin-testimony{margin-block:1.5rem}.latin-testimony p{font-family:Georgia,serif}.latin-testimony a{font-family:inherit}</style>
 </head>
 <body class="content-page" data-current-page="${attr(pageId)}" data-site-base="../..">
 <header class="topbar"><button aria-expanded="false" aria-label="Open navigation" class="mobile-nav-toggle" id="mobile-nav-toggle">☰</button><a class="brand" href="../../en/index.html"><strong data-i18n="brand">Gemcyclopedia</strong></a><div class="search-wrap"><label class="sr-only" data-i18n="searchLabel" for="site-search">Search the encyclopedia</label><input autocomplete="off" id="site-search" placeholder="Search gems, powers, places, and sources…" type="search"/><kbd>⌘ K</kbd><div class="search-results" id="search-results" role="listbox"></div></div><div class="top-actions"><button aria-label="Switch light and dark appearance" class="theme-toggle" id="theme-toggle" title="Switch light and dark appearance" type="button">◐</button><label class="language-select"><span data-i18n="language">Lingua</span><select aria-label="Language" id="language-select"><option value="en">English · EN</option><option value="pl">Polski · PL</option></select></label></div></header>
 <div class="page-shell with-toc"><aside class="left-rail" id="left-rail"><div class="rail-label">DISCOVER</div><nav class="primary-nav"><a class="home-link" data-i18n="home" href="../../en/index.html">Home</a><a data-i18n="gems" href="index.html">Gems</a><a data-i18n="powers" href="../../Powers/Browse.html">Powers</a><a data-i18n="locations" href="../../Locations/Browse.html">Locations</a><a data-i18n="sources" href="../Texts/index.html">Sources</a></nav><div class="rail-divider"></div><button class="rail-action" data-i18n="randomArticle" id="random-article">Open random article</button><button class="rail-action" data-i18n="randomGem" id="random-gem">Open random gem</button></aside>
 <main class="main-column" id="main-content"><div class="breadcrumbs"><a data-i18n="home" href="../../en/index.html">Home</a><span>/</span><a href="index.html">Gemme Latine</a><span>/</span><span>${esc(title)}</span></div><div class="article-toolbar"><span class="page-type">Gemma · Latin</span></div>
-<article class="article-content" data-page-title="${attr(title)}"><div class="article-heading"><div><h1>${esc(title)}</h1></div></div><div class="article-text">
+<article class="article-content" data-page-title="${attr(title)}"><div class="article-heading"><div><h1>${esc(title)}</h1></div></div><aside class="article-infobox"><h2 id="overview">${esc(title)}</h2>${image}<div class="infobox-table"><table class="overview-table"><tbody>${overviewRows}</tbody></table></div></aside><div class="article-text">
 <h2 id="summarium">Summarium</h2>${paragraph(summary)}
-<h2 id="conspectus">Conspectus</h2><table class="overview-table"><tbody>${overviewRows}</tbody></table>
 <h2 id="testimonia">Testimonia</h2>${witnesses}
 <h2 id="fontes">Fontes</h2><ol>${sourceList}</ol>
 </div></article><footer class="site-footer"><span>Gemcyclopedia · 2026</span><a href="../../en/index.html">Gemcyclopedia</a></footer></main><aside class="right-rail"><div class="rail-card"><h2 data-i18n="contents">In hac pagina</h2><nav class="toc"></nav></div></aside></div></body></html>`;
