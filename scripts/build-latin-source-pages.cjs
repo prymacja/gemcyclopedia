@@ -18,6 +18,10 @@ const localePages = {
     id: "Texts/Augustine - City of God XXI.4 Excerpts",
     file: "Augustine - City of God XXI.4 - Latin.html",
   },
+  "Arnoldus Saxo - De gemmarum virtutibus - Latin.md": {
+    id: "Texts/Arnoldus Saxo - De gemmarum virtutibus",
+    file: "Arnoldus Saxo - De gemmarum virtutibus - Latin.html",
+  },
   "Bartholomaeus - De proprietatibus rerum Book XVI - Latin.md": {
     id: "Texts/Bartholomaeus Anglicanus - De proprietatibus rerum",
     file: "Bartholomaeus - De proprietatibus rerum Book XVI - Latin.html",
@@ -314,7 +318,6 @@ function shell({ title, description, pageId, content, hasLocaleMap }) {
 <aside class="left-rail" id="left-rail"><div class="rail-label" data-i18n="discover">INVESTIGA</div><nav class="primary-nav"><a class="home-link" data-i18n="home" href="../../en/index.html">Domus</a><a data-i18n="gems" href="../../Gems/index.html">Gemmae</a><a data-i18n="powers" href="../../Powers/Browse.html">Vires</a><a data-i18n="locations" href="../../Locations/Browse.html">Loca</a><a data-i18n="sources" href="index.html">Fontes</a></nav><div class="rail-divider"></div><button class="rail-action" data-i18n="randomArticle" id="random-article">Open random article</button><button class="rail-action" data-i18n="randomGem" id="random-gem">Open random gem</button></aside>
 <main class="main-column" id="main-content">
 <div class="breadcrumbs"><a data-i18n="home" href="../../en/index.html">Home</a><span>/</span><a href="index.html">Source library · Latin</a><span>/</span><span>Source text</span></div>
-<div class="article-toolbar"><span class="page-type">Source text · Latin</span></div>
 <article class="article-content" data-page-title="${escapeHtml(title)}"><div class="article-text">${content}</div></article>
 <footer class="site-footer"><span>Gemcyclopedia · 2026</span><a href="../../en/index.html">Gemcyclopedia</a></footer>
 </main><aside class="right-rail"><div class="rail-card"><h2 data-i18n="contents">On this page</h2><nav class="toc"></nav></div></aside>
@@ -399,6 +402,7 @@ function bumpSourcePageContentIndex() {
 }
 
 const latinDisplayTitles = {
+  "Arnoldus Saxo - De gemmarum virtutibus - Latin.md": "Arnoldus Saxo — De gemmarum virtutibus",
   "Aberdeen Bestiary - Fire Stones and Magnes - Latin.md": "Bestiarium Aberdonense — Loci selecti de lapidibus igniferis et magnete",
   "Aelian - De natura animalium IV.17 and XV.8 - Latin.md": "Aeliani De natura animalium, IV.17 et XV.8",
   "Albertus - Book of Minerals - Latin.md": "Albertus Magnus — De mineralibus, liber II, tractatus II",
@@ -428,6 +432,7 @@ const latinDisplayTitles = {
 };
 
 const latinSourceStarts = {
+  "Arnoldus Saxo - De gemmarum virtutibus - Latin.md": "Ad tollendas plurimorum ambiguitates",
   "Aberdeen Bestiary - Fire Stones and Magnes - Latin.md": "## De lapidibus igniferis",
   "Aelian - De natura animalium IV.17 and XV.8 - Latin.md": "## Liber IV, §17",
   "Albertus - Book of Minerals - Latin.md": "TRACTATUS II",
@@ -509,6 +514,8 @@ function extractExternalLinks(markdown, raw) {
         const valueUrl = field[2].match(/https?:\/\/[^\s"']+/);
         if (valueUrl) add(activeKey, valueUrl[0]);
       } else {
+        const markdownLink = line.match(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/);
+        if (markdownLink) add(markdownLink[1], markdownLink[2]);
         const listUrl = line.match(/^\s*-\s*["']?(https?:\/\/[^\s"']+)/);
         if (listUrl) add(activeKey, listUrl[1]);
       }
